@@ -1,0 +1,1234 @@
+{\rtf1\ansi\deff0 {\fonttbl {\f0 Times New Roman;}}
+\paperw15840 \paperh12240 \margl1440 \margr1440 \margt1440 \margb1440 \landscape 
+{\pard Table XX \par}
+{\pard  \par}
+{\pard\i Means, standard deviations, and correlations with confidence intervals\par}
+{\pard  \par}
+{
+\trowd \trgaph100
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx1835 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx3060 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx4284 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx5508 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx6732 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx7956 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx9180 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx10404 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx11628 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx12852 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx14076 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx15300 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx16524 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{Variable}\cell
+\pard\sa0\sb0\intbl\qc{{\i M}}\cell
+\pard\sa0\sb0\intbl\qc{{\i SD}}\cell
+\pard\sa0\sb0\intbl\qc{1}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\qc{3}\cell
+\pard\sa0\sb0\intbl\qc{4}\cell
+\pard\sa0\sb0\intbl\qc{5}\cell
+\pard\sa0\sb0\intbl\qc{6}\cell
+\pard\sa0\sb0\intbl\qc{7}\cell
+\pard\sa0\sb0\intbl\qc{8}\cell
+\pard\sa0\sb0\intbl\qc{9}\cell
+\pard\sa0\sb0\intbl\qc{10}\cell
+\pard\sa0\sb0\intbl\qc{11}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx1835 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx3060 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx4284 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx5508 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx6732 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx7956 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx9180 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx10404 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx11628 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx12852 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx14076 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx15300 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx16524 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{1. PANAS_PositiveAffect}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{28.11}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{8.50}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{2. PANAS_NegativeAffect}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{23.14}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{5.63}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.22**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.33, -.11]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{3. PSQI_SleepQuality}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{5.87}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{2.65}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.11}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.24**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.22, .01]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.13, .34]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{4. HLEA_lx}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{213.42}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{229.38}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.08}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.06, .17]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.19, .03]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.07, .16]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{5. MEQ_Total}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{48.22}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{8.32}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.38**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.15*}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.08}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.27, .47]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.25, -.03]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.20, .03]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.17, .06]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{6. LEBA_F1}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{6.28}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{4.44}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.06}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.09}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.09}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.17, .05]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.03, .20]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.02, .20]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.14, .08]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.16, .07]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{7. LEBA_F2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{13.95}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{3.87}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.36**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.07}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.10}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.18**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.25, .45]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.15, .08]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.18, .04]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.02, .21]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.07, .29]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.07, .16]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{8. LEBA_F3}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{14.83}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{3.72}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.00}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.09}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.15**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.18**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.04}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.06}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.11, .11]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.02, .20]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.04, .26]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.13, .10]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.29, -.07]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.15, .08]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.05, .17]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{9. LEBA_F4}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{12.01}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{4.05}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.06}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.18**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.06}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.10}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.10, .13]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.09, .13]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.14, .08]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.13, .10]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.17, .05]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.07, .29]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.06, .17]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.01, .21]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{10. LEBA_F5}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{10.95}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{3.87}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.25**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.04}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.09}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.08}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.23**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.09}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.25**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.11}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.26**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.14, .35]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.08, .15]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.20, .02]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.04, .19]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.12, .33]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.02, .20]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.14, .35]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.01, .22]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.15, .36]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{11. OLS_Concentration_rec}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{2.50}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{0.87}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.25**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.42**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.23**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.01}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.24**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.01}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.19**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.04}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.36, -.15]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.32, .51]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.12, .34]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.10, .12]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.34, -.13]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.11, .12]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.14, .08]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.08, .30]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.09, .14]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.15, .07]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{12. OLS_Memory_rec}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{2.30}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{0.95}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.08}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.25**}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.13*}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.08}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{-.06}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.11}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.07}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.11}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{.31**}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1835 
+\clvertalc\cellx3060 
+\clvertalc\cellx4284 
+\clvertalc\cellx5508 
+\clvertalc\cellx6732 
+\clvertalc\cellx7956 
+\clvertalc\cellx9180 
+\clvertalc\cellx10404 
+\clvertalc\cellx11628 
+\clvertalc\cellx12852 
+\clvertalc\cellx14076 
+\clvertalc\cellx15300 
+\clvertalc\cellx16524 
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.19, .04]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.14, .35]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.09, .14]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.10, .13]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.24, -.02]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.19, .03]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.17, .05]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.00, .22]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.05, .18]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[-.00, .22]}}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{{\fs20[.20, .41]}}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx1835 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx3060 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx4284 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx5508 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx6732 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx7956 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx9180 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx10404 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx11628 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx12852 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx14076 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx15300 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx16524 
+\clbrdrb\brdrw15\brdrs
+\clvertalc\cellx17748 
+\pard\sa0\sb0\intbl\ql{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx428{ }\cell
+\row
+}
+{\pard \par}{\pard{\i Note.} {\i M} and {\i SD} are used to represent mean and standard deviation, respectively. Values in square brackets indicate the 95% confidence interval for each correlation. The confidence interval is a plausible range of population correlations that could have caused the sample correlation (Cumming, 2014). * indicates {\i p} < .05. ** indicates {\i p} < .01.\par}
+}

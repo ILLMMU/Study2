@@ -1,0 +1,1292 @@
+---
+title             : "Light exposure related behavior and their influence on memory, concentration, chronotype, mood and sleep quality"
+shorttitle        : "Online"
+
+author: 
+  - name          : "Mushfiqul Anwar Siraji"
+    affiliation   : "1"
+    corresponding : no    # Define only one corresponding author
+    address       : "Monash University"
+    email         : "mushfiqul.anwarsiraji@monash.pdf"
+    role:         
+      - Conceptualization
+      - Writing - Original Draft Preparation
+      - Writing - Review & Editing
+  - name          : "Vineetha Kalavally"
+    affiliation   : "2"
+    corresponding : no   # Define only one corresponding author
+    address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
+    email         : " vineetha@monash.edu"
+    role:
+      - Conceptualization
+      - Writing - Review & Editing
+  - name           : "Alexandre Schaefer"
+    affiliation   : "3"
+    corresponding : no   # Define only one corresponding author
+    address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
+    email         : " vineetha@monash.edu"
+    role:
+      - Conceptualization
+      - Writing - Review & Editing
+  - name           : "Shamsul Haque"
+    affiliation   : "1"
+    corresponding : yes   # Define only one corresponding author
+    address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
+    email         : " shamsul@monash.edu"
+    role:
+      - Conceptualization
+      - Writing - Review & Editing
+     
+
+affiliation:
+  - id            : "1"
+    institution   : "Monash University, Department of Psychology, Jeffrey Cheah School of Medicine and Health Sciences, Malaysia"
+  - id            : "2"
+    institution   : "Monash University, Department of Electrical and Computer Systems Engineering, Malaysia, Selangor, Malaysia"
+  - id            : "3"
+    institution   : "Sunway University, School of Medical and Life Sciences, Malaysia, Selangor, Malaysia"
+  
+
+authornote: |
+  Department of Psychology, Jeffrey Cheah School of Medicine and Health Sciences, Monash University Malaysia.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : 
+  papaja::apa6_pdf:
+    latex_engine: xelatex
+mainfont: Helvetica
+---
+
+```{r setup, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, dpi=600)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+set.seed(123)
+par(family = "Helvetica")
+```
+
+```{r library, include = FALSE}
+library(papaja)
+library(tidyverse)
+library(likert)
+library(scales)
+library(plotly)
+library(dlookr)
+library(psych)
+library(car)#leven's Test
+library(sjstats)# anova_stats
+library(apaTables)
+library(gt)
+library(gtsummary)
+library(gtExtras)
+library(ggplot2)
+library(MOTE)
+library(visreg)
+r_refs("references.bib")
+```
+
+```{r renv, eval=FALSE, include=FALSE}
+renv::snapshot()
+```
+
+```{r ggplot2, include=F}
+#This chunk holds code for creating ggplot2 based apatheme for plots.
+apatheme=theme_bw()+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        #text=element_text(family = "Helvetica"),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        plot.title = element_text(size = 15),
+        legend.text = element_text(size = 15),
+        legend.title=element_blank(),
+        axis.line.x = element_line(color='black'),
+        axis.line.y = element_line(color='black'),
+        panel.border = element_rect(color = "black",
+                                    fill = NA,
+                                    size = 1))
+
+```
+
+---
+nocite: |
+  `r cite_r("references.bib")`
+---
+
+##Objectives: 1. To explore the current light consumption pattern. 2. To
+investigate whether light exposure related behaviours can predict
+Trouble in concentration, trouble in memory Chronotype and sleep quality
+Mood.
+
+## Hypothesis
+
+Light exposure related behaviour will successfully predict: Trouble in
+Concentration and memory Chronotype and Sleep quality Mood
+
+# Methods
+
+
+```{r data}
+##Set up the data
+all.data <- readRDS("Light_survey_n_366.rds")
+incomplete <- all.data %>% 
+  filter(Finished == FALSE)
+data <- all.data %>% 
+  filter(Finished == TRUE)
+
+completion_rate <- nrow(data)/nrow(all.data)*100
+
+
+LB <- data %>% 
+  filter(Exclusion_Medication == "No" & Exclusion_Physical == "No"&Exclusion_Vision == "No" )
+
+exclusion <- nrow(data)-nrow(LB)
+
+## Recoding LB$OLS_Concentration into LB$OLS_Concentration_rec
+LB$OLS_Concentration_rec <- LB$OLS_Concentration %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+
+## Recoding LB$OLS_Memory into LB$OLS_Memory_rec
+LB$OLS_Memory_rec <- LB$OLS_Memory %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+LB$Num_of_Coffee_Weekdays <- as.numeric(LB$Num_of_Coffee_Weekdays)
+LB$Num_of_coffee_Weekend <- as.numeric(LB$Num_of_coffee_Weekend)
+
+## Recoding LB$OLS_DecreasedDaytimeAlertness into LB$OLS_DecreasedDaytimeAlertness_rec
+LB$OLS_DecreasedDaytimeAlertness_rec <- LB$OLS_DecreasedDaytimeAlertness %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+
+## Recoding data$Work_Shift into data$Work_Shift_rec
+LB$Work_Shift_rec <- fct_recode(LB$Work_Shift,
+  "Day" = "Day Shift",
+  "Mixed" = "Mixed shift work (Both Night and day in alternating way)",
+  "Night" = "Night Shift"
+)
+
+## Recoding LB$rec_LEBA4
+LB$rec_LEBA4 <- as.character(LB$rec_LEBA4)
+LB$rec_LEBA4[LB$rec_LEBA4 == "1"] <- "5"
+LB$rec_LEBA4[LB$rec_LEBA4 == "2"] <- "4"
+LB$rec_LEBA4[LB$rec_LEBA4 == "3"] <- "3"
+LB$rec_LEBA4[LB$rec_LEBA4 == "4"] <- "2"
+LB$rec_LEBA4[LB$rec_LEBA4 == "5"] <- "1"
+LB$rec_LEBA4 <- as.numeric(LB$rec_LEBA4)
+
+
+## Recoding LB$rec_LEBA17 into LB$rec_LEBA17_rec
+LB$rec_LEBA17 <- as.character(LB$rec_LEBA17)
+LB$rec_LEBA17[LB$rec_LEBA17 == "1"] <- "5"
+LB$rec_LEBA17[LB$rec_LEBA17 == "2"] <- "4"
+LB$rec_LEBA17[LB$rec_LEBA17 == "3"] <- "3"
+LB$rec_LEBA17[LB$rec_LEBA17 == "4"] <- "2"
+LB$rec_LEBA17[LB$rec_LEBA17 == "5"] <- "1"
+LB$rec_LEBA17 <- as.numeric(LB$rec_LEBA17)
+
+Descriptives <- LB %>% 
+  dplyr::select( Age, Gender, Religion, Ethnicity, Marital_Status,
+                 Education, Community_Stance,
+                 Time_of_day, PANAS_PositiveAffect, PANAS_NegativeAffect,
+                PSQI_SleepQuality,PSQI_Factor, SleepEnv_Total,
+                HLEA_lx,MEQ_Total,MEQ_Chronotype, LEBA_F1:LEBA_F5, Num_of_Coffee_Weekdays, Num_of_coffee_Weekend, Work_Shift, KSS_Alertness, OLS_Concentration, OLS_Memory)
+
+
+colnames(Descriptives) <- c( "Age", "Gender", "Religion", "Ethnicity",  "Marital_Status", "Education", "Community_Stance", "Time_of_ Day", "Positive_Affect", "Negative_Affect", "PSQI", "Sleep_Quality", "Sleep_Environment", "Avg_Corneal_Illuminance", "MEQ", "Chronotype", "LEBA1", "LEBA2", "LEBA3", "LEBA4", "LEBA5", "Cups_of_Coffee(Weekday)", "Cups_of Coffee(Weekend)", "Shift",
+                             "Subjective_Alertness", "Trouble_Concentration", "Trouble_in_Memory" )
+
+Descriptives$Age <- as.numeric(Descriptives$Age)
+Descriptives$`Cups_of Coffee(Weekend)` <- as.numeric(Descriptives$`Cups_of Coffee(Weekend)`)
+Descriptives$`Cups_of_Coffee(Weekday)` <- as.numeric(Descriptives$`Cups_of_Coffee(Weekday)`)
+Descriptives$Community_Stance <- as.numeric(Descriptives$Community_Stance)
+```
+
+
+
+## Participants
+
+An online survey  was conducted in September,2021-June, 2022 to
+understand the local people's light exposure related behavior. The
+survey was anonymous and a gift voucher of RM 10 was given to the fist
+100 participants. A priori power analysis was done to determine adequate sample sizes with G$*$Power 3.0 [@faul2007g]. To achieve a medium effect size (partial $\eta^2$ =
+0.14)[@cohen1988statistical] and 80% statistical power for liner
+multiple regression with seven predictors will need a total sample of 85
+individuals. In our online survey we collected `r nrow(all.data)` participants data. `r nrow(incomplete)` data were excluded due to incomplete data (`r MOTE::apa(completion_rate,0,T)`$\%$ completion rate). `r MOTE::apa(exclusion,0,T)`
+data were excluded based on data exclusion criteria.
+
+```{r LongDesc}
+
+library(kableExtra)
+Descriptives %>% 
+  tbl_summary(by = Gender, type = list(Subjective_Alertness ="continuous", 
+                            Age ="continuous", 
+                           Community_Stance ="continuous", 
+                           `Cups_of_Coffee(Weekday)` ="continuous",
+                           `Cups_of Coffee(Weekend)` = "continuous"),
+               missing = "no",
+  statistic = list(all_continuous()~ "{mean} ({sd})")
+) %>% modify_caption("Dempgraphics") %>% 
+  as_kable(format = 'pipe') %>% 
+  kable_styling(latex_options = c("scale_down","repeat_header")) %>% 
+  column_spec(1, width = "2cm")
+
+```
+
+
+
+```{r shortDes,include=F}
+tab.res <- LB %>% 
+  dplyr::select(PSQI_Factor, PANAS_PositiveAffect, PANAS_NegativeAffect,
+                HLEA_lx, LEBA_F1:LEBA_F5,  KSS_Alertness, OLS_Concentration, OLS_Memory)
+
+
+colnames(tab.res) <- c( "PSQI_Factor", "Positive_Affect", "Negative_Affect", "Avg_Corneal_Illuminance",  "LEBA1", "LEBA2", "LEBA3", "LEBA4", "LEBA5",
+                             "Subjective_Alertness", "Trouble_Concentration", "Trouble_in_Memory" )
+
+
+## Recoding tab.res$Trouble_Concentration into tab.res$Trouble_Concentration_rec
+tab.res$Trouble_Concentration <- fct_recode(tab.res$Trouble_Concentration,
+  "0" = "Absent",
+  "2" = "Moderate",
+  "3" = "Severe",
+  "1" = "Slight"
+)
+tab.res$Trouble_Concentration <- as.numeric(as.character(tab.res$Trouble_Concentration))
+
+## Recoding tab.res$Trouble_in_Memory
+tab.res$Trouble_in_Memory <- fct_recode(tab.res$Trouble_in_Memory,
+  "0" = "Absent",
+  "2" = "Moderate",
+  "3" = "Severe",
+  "1" = "Slight"
+)
+tab.res$Trouble_in_Memory <- as.numeric(as.character(tab.res$Trouble_in_Memory))
+
+
+gt_sum <- tab.res %>% 
+  tbl_summary(by = PSQI_Factor, type = list(Subjective_Alertness ="continuous",Trouble_Concentration = "continuous", Trouble_in_Memory = "continuous"), missing = "no",
+  statistic = list(all_continuous()~ "{mean} ({sd})")  
+  ) %>% 
+  add_p() %>% 
+    add_q()
+```
+
+## Material
+
+### Karolinska Sleepiness Scale
+
+Subjective alertness wase evaluated with the Karolinska Sleepiness Scale
+[@aakerstedt1990subjective]. It is a self-reported subjective assessment
+that uses a 10-point Likert-type scale, ranging from extremely sleepy
+(10 points) to extremely alert (1 point). This scale has been highly
+correlated with the actual workplace performance and the objective
+measures of fatigue.
+
+### PANAS
+
+The positive and negative affect (PANAS) [@watson1988development] was
+used to measure positive and negative affects. PANAS is comprised of 20
+items, 10 items measuring positive affects and 10 items measuring
+negative affects. PANAS has a high internal consistency coefficient
+alpha (.87) and sufficient structural validity[@watson1988development].
+
+### Office light Survey
+
+We used office light survey [@eklund1996development] to measure light
+satisfaction, trouble in concentration, trouble in memory and light's
+influence on different physiological discomfort including fatigue,
+clumsiness, and weakness. ##\# Harvard Light Exposure Assessment. To
+measure individual's average daily light exposure in lux from subjective
+reporting use was Harvard light exposure assessment (H-LEA) [@RN1182].
+H-LEA is a reliable tool to assess daily light exposure as it showed
+significantly strong correlation (r =.72, p\<.001) with actual photopic
+light measures. However, one challenge we need to deal with was the
+absence of estimated corneal illuminance for LED luminaires. To address
+this issue, we take 10 random readings of illuminance at different
+position and averaged them.
+
+### Pittsburgh Sleep Quality Index
+
+The Pittsburgh Sleep Quality Index [@RN1183] is a useful instrument used
+to measure sleep quality and sleep patterns. It measures seven domains
+of sleep to differentiate "poor" from "good" sleep. Scores range from
+zero to three on a Likert Scale, whereby 3 reflects the negative extreme
+on the Likert Scale. A sum of scores equal to or greater than five
+indicates poor sleep quality. The PSQI has internal consistency and a
+reliability coefficient (Cronbach's alpha) of 0.83 for its seven
+components. Scores also exhibit a strong correlation with related sleep
+construct indicating high validity of the scale
+
+### Morningness-Eveningness Questionnaire
+
+Morningness-Eveningness questionnaire [@RN1185] is consist of 19
+questions. The scores range from 16 to 86. The higher scores indicate
+more morning propensity. Its internal consistency in a New Zealand
+version was, Cronbach α coefficient=0.83. In the Original study in
+student population (18-32 years) scores were validated with oral
+temperature curves. ##\# Light exposure behavior assessment (LEBA).
+There was no suitable tool to measure behaviors that may lead to
+different light exposure. As a result, we in conjunction with a team
+based on University of Basel developed a tool to characterise different
+light exposure-related behaviours in people. A robust panel of expert
+created 48 pertaining items that captures different light exposure
+related behaviors. Our contribution towards the development of this
+scale was to conduct formal psychometric analysis. Our exploratory
+factor analysis revealed five factor with 25 items. In our CFA analysis
+we obtain a best fit with a five factor model consisting 23 items (CFI
+=.97; TLI = .96; RMSEA = .05\[.04-.06, 90% CI\], SRMR = .09) The
+internal consistency reliability coefficients were .93, .80, .61, .72,
+.45 respectively indicating satisfactory reliability for F1, F2 and F4 .
+The manuscript of the development of LEBA is still a work in progress
+and will be submitted to a reputed Q1 journal.
+
+```{r internalconsistancy,include=F}
+
+
+#MEQ
+MEQ_IC <- data %>% 
+  dplyr::select(MEQ1_rec:MEQ19_rec)
+MEQ_IC.alpha <- psych::alpha(MEQ_IC, check.keys = T) 
+
+MEQ_IC.alpha.raw <- MEQ_IC.alpha $total$raw_alpha
+
+
+#PANAS
+PANAS_IC <- data %>% 
+  dplyr::select(PANAS_Interested:PANAS_Afraid)
+
+PANAS_IC.alpha <- psych::alpha(PANAS_IC, check.keys = T) 
+
+PANAS_IC.raw <- PANAS_IC.alpha $total$raw_alpha
+
+#PSQI
+PSQI_IC <- data %>% 
+  dplyr::select(PSQI_C1:PSQI_C7)
+PSQI_IC.alpha <- psych::alpha(PSQI_IC, check.keys = T) 
+
+PSQI_IC.raw <- PSQI_IC.alpha $total$raw_alpha
+
+
+#LEBA
+LEBA <- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA23)
+
+## Recoding LEBA$LEBA4
+LEBA$rec_LEBA4 <- as.character(LEBA$rec_LEBA4)
+LEBA$rec_LEBA4 <- fct_recode(LEBA$rec_LEBA4,
+  "5" = "1",
+  "4" = "2",
+  "2" = "4",
+  "1" = "5"
+)
+
+LEBA_F1_IC <- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA3)
+
+LEBA_F2_IC <- LB %>% 
+  dplyr::select(rec_LEBA4:rec_LEBA9)
+LEBA_F3_IC <- LB %>% 
+  dplyr::select(rec_LEBA10:rec_LEBA14)
+LEBA_F4_IC <- data %>% 
+  dplyr::select(rec_LEBA15:rec_LEBA18)
+LEBA_F5_IC <- LB %>% 
+  dplyr::select(rec_LEBA19:rec_LEBA23)
+
+LEBA_F1_IC.alpha <- psych::alpha(LEBA_F1_IC, check.keys = T)
+LEBA_F2_IC.alpha <- psych::alpha(LEBA_F2_IC, check.keys = T)
+LEBA_F3_IC.alpha <- psych::alpha(LEBA_F3_IC, check.keys = T)
+LEBA_F4_IC.alpha <- psych::alpha(LEBA_F4_IC, check.keys = T)
+LEBA_F5_IC.alpha <- psych::alpha(LEBA_F5_IC, check.keys = T)
+
+LEBA_F1_IC.raw <- LEBA_F1_IC.alpha$total$raw_alpha
+LEBA_F2_IC.raw <- LEBA_F2_IC.alpha$total$raw_alpha
+LEBA_F3_IC.raw <- LEBA_F3_IC.alpha$total$raw_alpha
+LEBA_F4_IC.raw <- LEBA_F4_IC.alpha$total$raw_alpha
+LEBA_F5_IC.raw <- LEBA_F5_IC.alpha$total$raw_alpha
+
+```
+
+
+
+## Procedure
+
+## Data analysis
+
+```{r LightExp, include=F}
+
+#Harvard Light exposure
+HLEA <- LB %>% 
+  select(hour1:hour24)
+
+#Renaming to get the data in ordered fashion
+prefix <- "H"
+sufix <- (1:24)
+colnames <-  paste(prefix,sufix, sep = "" )
+colnames(HLEA) <- colnames
+names(HLEA)[names(HLEA) == "H1"] <- "H01"
+names(HLEA)[names(HLEA) == "H2"] <- "H02"
+names(HLEA)[names(HLEA) == "H3"] <- "H03"
+names(HLEA)[names(HLEA) == "H4"] <- "H04"
+names(HLEA)[names(HLEA) == "H5"] <- "H05"
+names(HLEA)[names(HLEA) == "H6"] <- "H06"
+names(HLEA)[names(HLEA) == "H7"] <- "H07"
+names(HLEA)[names(HLEA) == "H8"] <- "H08"
+names(HLEA)[names(HLEA) == "H9"] <- "H09"
+
+#Convert to long data format 
+HLEA.long <- gather(HLEA, "Hour", "Light" )
+
+#PLot typical light consumption pattern
+HLEA.plot = ggplot(HLEA.long,  aes(Hour, fill=Light)) +
+  geom_bar(position="fill")+
+  theme_classic()+
+  scale_y_continuous(labels = scales::percent_format(), name = "Proportion")+
+
+  scale_fill_manual(values=c("gray", "khaki2", "green","red","blue1",
+                             "deepskyblue3","bisque2", "yellow"))+apatheme+theme(legend.text = element_text(size = 10),
+                                                                                axis.text.x = element_text(angle = 90))
+
+ggsave("Figures/Light_exposure.png", HLEA.plot, width = 10, height = 8, dpi = 600, bg= "white")
+
+```
+
+```{r HLEA-plot}
+HLEA.plot
+```
+
+```{r HLEACrosstab,include=F}
+HLEA.Cross <- sjPlot::tab_xtab(var.row = HLEA.long$Hour, 
+                 var.col =HLEA.long$Light , 
+                 title = "Table Title", 
+                 show.row.prc = TRUE,
+                 show.obs=T,
+                 show.summary =T)
+HLEA.Cross 
+```
+
+```{r HLEAPie, include =F}
+install.packages("ggsci")
+light <- c("Darkness", "FL", "HL", "Inc",  "LED", "Natural Lights (Indoor)", "Others", "SL")
+#get the percentage value from cross-table
+percentage <- c(22.4, 20.3, 1.2, 4.1,17, 19.1, 9.2, 6.8)
+#create a data frame for the pie chart
+pie <- data.frame(light, percentage)
+pie <- pie %>% 
+  arrange(desc(light)) %>%
+  mutate(prop = percentage / sum(pie$percentage) *100) %>%
+  mutate(ypos = cumsum(prop)- 0.5*prop )
+
+HLEA.pie <- ggplot(pie, aes(x="", y=prop, fill=light)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0) +
+  theme_void() + 
+  geom_text(aes(y = ypos, label = light), color = "gray0", size=4) +
+  scale_fill_manual(values=c("gray", "khaki2", "green","red","blue1",
+                             "deepskyblue3","bisque2", "yellow"))
+
+HLEA.pie
+
+ggsave("Figures/pie.chart.png",HLEA.pie, width = 6, height = 6, dpi = 600, bg= "white")
+```
+
+```{r LEBA-validation,include=F}
+LEBA <- LB %>% 
+  dplyr::select(LEBA1_rec:LEBA23_rec)
+
+# recod_LEBA <- c("Never"=1,
+#                  "Rarely"=2,
+#                  "Sometimes"=3,
+#                  "Often"=4,
+#                  "Always" = 5)
+
+# LEBA_recoded <-  mutate(LEBA, across(starts_with("LEBA"), ~unname(recod_LEBA[.])))
+# 
+# 
+# ## Recoding LEBA$LEBA4
+# LEBA$LEBA4 <- as.character(LEBA$LEBA4)
+# LEBA$LEBA4 <- fct_recode(LEBA$LEBA4,
+#   "5" = "1",
+#   "4" = "2",
+#   "2" = "4",
+#   "1" = "5"
+# )
+
+#Rename to get the data in ordered fasion
+names(LEBA)[names(LEBA) == "LEBA1"] <- "LEBA01"
+names(LEBA)[names(LEBA) == "LEBA2"] <- "LEBA02"
+names(LEBA)[names(LEBA) == "LEBA3"] <- "LEBA03"
+names(LEBA)[names(LEBA) == "LEBA4"] <- "LEBA04"
+names(LEBA)[names(LEBA) == "LEBA5"] <- "LEBA05"
+names(LEBA)[names(LEBA) == "LEBA6"] <- "LEBA06"
+names(LEBA)[names(LEBA) == "LEBA7"] <- "LEBA07"
+names(LEBA)[names(LEBA) == "LEBA8"] <- "LEBA08"
+names(LEBA)[names(LEBA) == "LEBA9"] <- "LEBA09"
+
+#get a long data frame
+LEBA.long <- as.data.frame(gather(LEBA, "Items", "value"))
+LEBA.long$value <- as.numeric(LEBA.long$value)
+gt.LEBA <- LEBA.long %>% 
+  group_by(Items) %>% 
+# calculate summary stats & create data for the histogram and density plot
+  dplyr::summarise(
+    mean = mean(value, na.rm =T),
+    sd = sd(value, na.rm = TRUE),
+    hist_data = list(value),
+    dens_data = list(value),
+    .groups = "drop"
+  ) %>% 
+  gt::gt() 
+
+#Preparation for likert data
+LEBA.likert <- as.data.frame(LEBA) 
+
+recod_LEBA <- c( "1" = "Never", "2" = "Rarely", "3"= "Sometimes","4" = "Often",
+                 "5" = "Always")
+LEBA.likert <-  mutate(LEBA.likert, across(starts_with("LEBA"), ~unname(recod_LEBA[.])))
+
+#using as.data.frame() is crucial
+LEBA.Factor = as.data.frame(lapply(LEBA.likert, factor,
+                                       ordered = T))
+#get the items name
+LEBA.items <- names(LEBA.Factor) 
+#Calculate percentage
+LEBA.percentage <- kutils::likert(LEBA.Factor, vlist = LEBA.items ) 
+
+LEBA.percentage <- LEBA.percentage$table %>% 
+  as.data.frame(.)
+
+#data wrangling
+labels <- c("Always", "Never","Often", "Rarely", "Sometimes","Total")
+as.data.frame(labels)
+
+full.LEBA.percentage <- cbind(labels,LEBA.percentage) #tables with labels  
+full.LEBA.percentage<- t(full.LEBA.percentage ) #transpose
+as.data.frame(full.LEBA.percentage)
+full.LEBA.percentage1 <- full.LEBA.percentage[-1,-6] #removing 1st row and total column
+full.LEBA.percentage2 <- full.LEBA.percentage1[, c(2, 4, 5, 3,1)]# rearranging
+as.data.frame(full.LEBA.percentage2)
+
+
+colnames(full.LEBA.percentage2) <- c("Never","Rarely","Sometimes","Often","Always")
+
+LEBA.Items <- rownames(full.LEBA.percentage2)
+as.data.frame(LEBA.Items)
+full.LEBA.percentage3 <- cbind(LEBA.Items,full.LEBA.percentage2)
+
+full.LEBA.percentage4 <- full.LEBA.percentage3[order(LEBA.Items),] 
+full.LEBA.percentage5 <- as.data.frame(full.LEBA.percentage4[,-1]) %>% 
+  gt::gt()
+
+
+gt.LEBA.table <- gt.LEBA$'_data'
+gt.LEBA.liket <- full.LEBA.percentage5$'_data'
+
+
+
+LEBATable <-  cbind( gt.LEBA.table, gt.LEBA.liket)%>% 
+  gt::gt()%>% 
+# histogram and density plots
+  gtExtras::gt_sparkline(
+    hist_data,
+    type = "histogram",
+    line_color = "black", 
+    fill_color = "grey",
+    bw = 1,
+    same_limit = TRUE)%>%
+  gtExtras::gt_sparkline(
+    dens_data,
+    type = "density",
+    line_color = "black", 
+    fill_color = "grey",
+    bw = 0.75,
+    same_limit = TRUE
+  )%>%
+  # format decimals
+  gt::fmt_number(columns = mean:sd, decimals = 1) %>%
+  # header
+  gt::tab_header(
+    title = md("**LEBA**"),
+    subtitle = md("Summary results of LEBA (N =107)")
+  ) %>% 
+  gt::tab_footnote(
+    footnote = md("**Histogram**"),
+    locations = cells_column_labels(columns = hist_data)
+  ) %>%
+  gt::tab_footnote(
+    footnote = md("**Density**"),
+    locations = cells_column_labels(columns = dens_data)
+  ) %>% 
+  #create groups of columns
+  gt::tab_spanner(
+    label = "Items",
+    columns = Items
+  ) %>%
+  gt::tab_spanner(
+    label = "Summary Statistics",
+    columns = mean:sd
+  ) %>%
+  gt::tab_spanner(
+    label = "Graphics",
+    columns = hist_data:dens_data
+  ) %>% 
+  gt::tab_spanner(
+    label = "Response Pattern",
+    columns = Never:Always
+  ) %>%
+  # change column names to appear in the table
+  gt::cols_label(
+    Items = ("LEBA  Items"),
+    
+    mean = ("Mean"),
+    sd = (("SD")),
+    hist_data = "Histogram",
+    dens_data = "Density"
+  )  %>% 
+  # set alignment as per wish
+  gt::cols_align(
+    align = "center",
+    columns = everything()
+  ) %>%
+  gt::opt_align_table_header(align = "left") %>%
+  # add coloured dots and lines on the first column
+  gtExtras::gt_plt_dot(
+    mean,
+    Items,
+    palette = "ggthemes::fivethirtyeight"
+  ) %>%
+  gt::tab_row_group(
+    label = "F1: Wearing blue light filters",
+    rows = 01:03) %>%
+ gt::tab_row_group(
+   label = "F2: Spending time outdoors",
+   rows = 04:09) %>% 
+  gt::tab_row_group(
+    label = "F3: Using phone and smartwatch in bed",
+    rows = 10:14) %>% 
+  gt::tab_row_group(
+    label = "F4: Using light before bedtime",
+    rows = 15:18) %>% 
+  gt::tab_row_group(
+    label = "F5: Using light in the morning and during daytime",
+    rows = 19:23)%>%
+  gt::row_group_order(
+    groups = c("F1: Wearing blue light filters", "F2: Spending time outdoors",
+               "F3: Using phone and smartwatch in bed", "F4: Using light before bedtime",
+               "F5: Using light in the morning and during daytime" ))%>% gt::gtsave("Figures/LEBA.png")
+```
+
+```{r LMRData, include=F}
+LMR <- LB %>% 
+  dplyr::select(PANAS_PositiveAffect, PANAS_NegativeAffect,
+                PSQI_SleepQuality,
+                HLEA_lx,MEQ_Total, LEBA_F1:LEBA_F5, OLS_Concentration_rec, OLS_Memory_rec)
+LMR <- na.omit(LMR)
+```
+
+
+```{r corrmtx, eval=FALSE, include=FALSE, results='asis'}
+
+apaTables::apa.cor.table(
+  LMR,
+  filename = "Analysis_data/Cor.doc",
+  table.number = NA,
+    show.sig.stars = TRUE,
+  landscape = TRUE
+)
+```
+
+```{r scatterplot}
+corx::corx(LMR, caption = "Correlation Matrix")
+
+correlation.scatter <- pairs.panels(LMR, main="Scatterplot Matix")
+```
+
+```{r multivariate, include=FALSE}
+MVN::mvn(LMR, mvnTest ="mardia")
+MVN::mvn(LMR, multivariatePlot = "qq")
+MVN::mvn(LMR, multivariateOutlierMethod = "quan")
+MVN::mvn(LMR, univariatePlot =  "histogram")
+MVN::mvn(LMR, univariatePlot =  "box")
+```
+
+
+
+```{r MLR, include=F}
+
+con.full <- lm(OLS_Concentration_rec~ LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+mem.full <- lm(OLS_Memory_rec~  LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+sq.full <- lm(PSQI_SleepQuality~  LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+pa.full <- lm(PANAS_PositiveAffect~  LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+na.full <- glm(PANAS_NegativeAffect~  LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+chrono.full <- lm(MEQ_Total~ LEBA_F1+LEBA_F2+ LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+
+
+car::S(con.full)
+car::S(mem.full)
+car::S(sq.full)
+car::S(pa.full)
+car::S(na.full)
+car::S(chrono.full)
+
+
+
+concentration <- lm(OLS_Concentration_rec~  LEBA_F3+LEBA_F5, data = LMR)
+memory <- lm(OLS_Memory_rec~  LEBA_F5, data = LMR)
+sq <- lm(PSQI_SleepQuality~  LEBA_F3+LEBA_F4, data = LMR)
+pa <- lm(PANAS_PositiveAffect~  LEBA_F2+LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+na <- lm(PANAS_NegativeAffect~  LEBA_F2+LEBA_F3, data = LMR)
+chronotype <- lm(MEQ_Total~ LEBA_F2+LEBA_F3+LEBA_F4+LEBA_F5, data = LMR)
+
+#car::S(concentration)
+#car::S(memory)
+#car::S(sq)
+#car::S(chronotype)
+#car::S(pa)
+#car::S(na)
+
+concentration.robust <- robustbase::lmrob(OLS_Concentration_rec~ LEBA_F3, data = LMR)
+memory.robust <- robustbase::lmrob(OLS_Memory_rec~  LEBA_F5, data = LMR)
+summary(memory.robust)
+car::S(memory.robust)
+car::S(concentration.robust)
+
+
+
+
+```
+
+```{r MLRtables}
+sjPlot::tab_model(con.full,concentration,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/concentration.doc")
+
+
+
+sjPlot::tab_model(mem.full,memory,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/memeory.doc")
+
+sjPlot::tab_model(sq.full,sq,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/sleep_quality.doc")
+
+sjPlot::tab_model(pa.full, pa,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/pa.doc")
+
+sjPlot::tab_model(na.full,na,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/na.doc")
+
+sjPlot::tab_model(chrono.full,chronotype,
+                  show.est =T,
+                  show.std = T,
+                  show.stat= F,
+                  show.fstat =T,
+                  show.se =F,
+                  show.aic =T,
+                  show.loglik =T,
+                  collapse.ci = TRUE,
+                  string.pred = "Coeffcient",
+                  string.ci = "Conf. Int (95%)",
+                  show.reflvl = T
+                ,file = "regression_tables/chronotype.doc")
+
+  
+```
+
+
+Durbin-Watson test is a test for a particular type of (lack of) independence; namely, 1st-order autocorrelation, which means that adjacent observations (specifically, their errors) are correlated (i.e., not independent) (Draper & Smith, 1998). D-W statistics less than 1 or greater than 3 should definitely raise alarm bells. The closer to 2 that the value is, the better.
+
+If the largest VIF is greater than 10 then there is cause for concern 
+(Bowerman &O’Connell, 1990; Myers, 1990).
+
+If the average VIF is substantially greater than 1 then the regression may be biased
+(Bowerman & O’Connell, 1990).
+
+Tolerance below 0.1 indicates a serious problem.
+Tolerance below 0.2 indicates a potential problem (Menard, 1995).
+
+
+```{r}
+#Assumptions
+##Assumption of independence: Durbin–Watson test
+
+dwt(concentration)
+dwt(memory)
+dwt(sq)
+dwt(chronotype)
+dwt(pa)
+dwt(na)
+
+#Assumption of colinearity
+vif(concentration)
+mean(vif(concentration))
+#vif(memory)
+vif(sq)
+mean(vif(sq))
+vif(chronotype)
+mean(vif(chronotype))
+vif(pa)
+mean(vif(pa))
+vif(na)
+mean(vif(na))
+
+
+#Partial Regression Plot : Test of linearity
+visreg(pa,  gg = TRUE) 
+
+
+#distribution of the Studentized residuals from the regression
+densityPlot (rstudent (na))
+qqPlot(concentration, id = list(n=3))
+qqPlot(memory, id = list(n=3))
+qqPlot(sq, id = list(n=3))
+qqPlot(chronotype, id = list(n=3))
+qqPlot(pa, id = list(n=3))
+qqPlot(na, id = list(n=3))
+
+# Assumption of Homoscedasticity (no need)
+
+ncvTest(concentration)
+ncvTest(memory)
+ncvTest(sq)
+ncvTest(chronotype)
+ncvTest(pa)
+ncvTest(na)
+
+```
+
+```{r}
+#Diagnostic Plot
+
+outlierTest(pa)
+
+influenceIndexPlot (na, vars=c ("Cook", "hat"), id=list
+(n=3))
+
+avPlots (na, id=list (cex=0.75, n=3, method="mahal"))
+
+residualPlot(na)
+
+crPlots (na)
+
+
+```
+
+```{r}
+#Plots from andyfield
+
+PA.Fitted <- pa$fitted.values
+PA.studentized.residuals <- rstudent(pa)
+
+PA.plot <- as.data.frame(cbind(PA.Fitted,PA.studentized.residuals))
+
+PA.histogram<-ggplot(PA.plot, aes(PA.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR:Positive Affect", y = "Density")
+
+PA.student.res <- PA.histogram + stat_function(fun = dnorm, args = list(mean = mean(PA.plot$PA.studentized.residuals, na.rm = TRUE), sd = sd(PA.plot$PA.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+PA.scatter <- ggplot(PA.plot, aes(PA.Fitted, PA.studentized.residuals))
+pos.scater <- PA.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR:PA") 
+
+
+NA.Fitted <- na$fitted.values
+NA.studentized.residuals <- rstudent(na)
+
+NA.plot <- as.data.frame(cbind(NA.Fitted,NA.studentized.residuals))
+
+NA.histogram<-ggplot(NA.plot, aes(NA.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR Negative Affect", y = "Density")
+
+NA.student.res <- NA.histogram + stat_function(fun = dnorm, args = list(mean = mean(NA.plot$NA.studentized.residuals, na.rm = TRUE), sd = sd(NA.plot$NA.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+NA.scatter <- ggplot(NA.plot, aes(NA.Fitted, NA.studentized.residuals))
+neg.scater <- NA.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR: NA")
+
+
+
+SQ.Fitted <- sq$fitted.values
+SQ.studentized.residuals <- rstudent(sq)
+
+SQ.plot <- as.data.frame(cbind(SQ.Fitted,SQ.studentized.residuals))
+
+SQ.histogram<-ggplot(SQ.plot, aes(SQ.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR:Sleep Quality", y = "Density")
+
+SQ.student.res <- SQ.histogram + stat_function(fun = dnorm, args = list(mean = mean(SQ.plot$SQ.studentized.residuals, na.rm = TRUE), sd = sd(SQ.plot$SQ.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+SQ.scatter <- ggplot(SQ.plot, aes(SQ.Fitted, SQ.studentized.residuals))
+SleepQ.scatter <- SQ.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR:Sleep Quality") 
+
+concentration.Fitted <- concentration$fitted.values
+concentration.studentized.residuals <- rstudent(concentration)
+
+concentration.plot <- as.data.frame(cbind(concentration.Fitted,concentration.studentized.residuals))
+
+concentration.histogram<-ggplot(concentration.plot, aes(concentration.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR: Trouble in concentration", y = "Density")
+
+concentration.student.res <- concentration.histogram + stat_function(fun = dnorm, args = list(mean = mean(concentration.plot$concentration.studentized.residuals, na.rm = TRUE), sd = sd(concentration.plot$concentration.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+concentration.scatter <- ggplot(concentration.plot, aes(concentration.Fitted, concentration.studentized.residuals))
+con.scatter <- concentration.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR: Concentration") 
+
+Memory.Fitted <- memory$fitted.values
+Memory.studentized.residuals <- rstudent(memory)
+
+Memory.plot <- as.data.frame(cbind(Memory.Fitted,Memory.studentized.residuals))
+
+Memory.histogram<-ggplot(Memory.plot, aes(Memory.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR: Trouble in memory", y = "Density")
+
+Memory.student.res <- Memory.histogram + stat_function(fun = dnorm, args = list(mean = mean(Memory.plot$Memory.studentized.residuals, na.rm = TRUE), sd = sd(Memory.plot$Memory.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+Memory.scatter <- ggplot(Memory.plot, aes(Memory.Fitted, Memory.studentized.residuals))
+memory.scatter <- Memory.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR: Memory") 
+
+
+chronotype.Fitted <- chronotype$fitted.values
+chronotype.studentized.residuals <- rstudent(chronotype)
+
+chronotype.plot <- as.data.frame(cbind(chronotype.Fitted,chronotype.studentized.residuals))
+
+chronotype.histogram<-ggplot(chronotype.plot, aes(chronotype.studentized.residuals)) + labs(legend.position = "none") + geom_histogram(aes(y=..density..), colour="black", fill="white") + labs(x = "SR:Cronotype", y = "Density")
+
+chronotype.student.res <- chronotype.histogram + stat_function(fun = dnorm, args = list(mean = mean(chronotype.plot$chronotype.studentized.residuals, na.rm = TRUE), sd = sd(chronotype.plot$chronotype.studentized.residuals, na.rm = TRUE)), colour = "red", size = 1)
+
+
+chronotype.scatter <- ggplot(chronotype.plot, aes(chronotype.Fitted, chronotype.studentized.residuals))
+chronotype.scatter <- chronotype.scatter + geom_point() + geom_smooth(method = "lm", colour = "Red")+ labs(x = "Fitted Values", y = "SR: chronotype") 
+```
+
+
+```{r}
+cowplot::plot_grid(concentration.student.res,Memory.student.res,SQ.student.res, chronotype.student.res, PA.student.res,NA.student.res, ncol = 3, labels ='AUTO', align = "h")
+```
+
+```{r}
+cowplot::plot_grid(con.scatter,memory.scatter,SleepQ.scatter,chronotype.scatter,  pos.scater,neg.scater, ncol = 3, labels ='AUTO', align = "h")
+```
+
+We used `r cite_r("references.bib")` for all our analyses.
+
+# Results
+```{r}
+names(LB)[names(LB) == "MEQ1_rec"] <- "rec_MEQ1"
+names(LB)[names(LB) == "MEQ2_rec"] <- "rec_MEQ2"
+names(LB)[names(LB) == "MEQ3_rec"] <- "rec_MEQ3"
+names(LB)[names(LB) == "MEQ4_rec"] <- "rec_MEQ4"
+names(LB)[names(LB) == "MEQ5_rec"] <- "rec_MEQ5"
+names(LB)[names(LB) == "MEQ6_rec"] <- "rec_MEQ6"
+names(LB)[names(LB) == "MEQ7_rec"] <- "rec_MEQ7"
+names(LB)[names(LB) == "MEQ8_rec"] <- "rec_MEQ8"
+names(LB)[names(LB) == "MEQ9_rec"] <- "rec_MEQ9"
+names(LB)[names(LB) == "MEQ10_rec"] <- "rec_MEQ10"
+names(LB)[names(LB) == "MEQ11_rec"] <- "rec_MEQ11"
+names(LB)[names(LB) == "MEQ12_rec"] <- "rec_MEQ12"
+names(LB)[names(LB) == "MEQ13_rec"] <- "rec_MEQ13"
+names(LB)[names(LB) == "MEQ14_rec"] <- "rec_MEQ14"
+names(LB)[names(LB) == "MEQ15_rec"] <- "rec_MEQ15"
+names(LB)[names(LB) == "MEQ16_rec"] <- "rec_MEQ16"
+names(LB)[names(LB) == "MEQ17_rec"] <- "rec_MEQ17"
+names(LB)[names(LB) == "MEQ18_rec"] <- "rec_MEQ18"
+names(LB)[names(LB) == "MEQ19_rec"] <- "rec_MEQ19"
+
+#Positive Affects
+
+names(LB)[names(LB) == "PANAS_Interested"] <- "PA1"
+names(LB)[names(LB) == "PANAS_Excited"] <- "PA2"
+names(LB)[names(LB) == "PANAS_Strong"] <- "PA3"
+names(LB)[names(LB) == "PANAS_Enthusiatic"] <- "PA4"
+names(LB)[names(LB) == "PANAS_Proud"] <- "PA5"
+names(LB)[names(LB) == "PANAS_Alert"] <- "PA6"
+names(LB)[names(LB) == "PANAS_Inspired"] <- "PA7"
+names(LB)[names(LB) == "PANAS_Determined"] <- "PA8"
+names(LB)[names(LB) == "PANAS_Attentive"] <- "PA9"
+names(LB)[names(LB) == "PANAS_Active"] <- "PA10"
+
+#Negative Affescts
+
+
+names(LB)[names(LB) == "PANAS_Distressed"] <- "NegA1"
+names(LB)[names(LB) == "PANAS_Upset"] <- "NegA2"
+names(LB)[names(LB) == "PANAS_Guilty"] <- "NegA3"
+names(LB)[names(LB) == "PANAS_Scared"] <- "NegA4"
+names(LB)[names(LB) == "PANAS_Hostile"] <- "NegA5"
+names(LB)[names(LB) == "PANAS_Irritable"] <- "NegA6"
+names(LB)[names(LB) == "PANAS_Ashmed"] <- "NegA7"
+names(LB)[names(LB) == "PANAS_Nervous"] <- "NegA8"
+names(LB)[names(LB) == "PANAS_Jittery"] <- "NegA9"
+names(LB)[names(LB) == "PANAS_Afraid"] <- "NegA10"
+
+```
+
+
+```{r}
+library(seminr)
+
+##Measeurement Model
+simple_mm <- constructs(
+  composite("Concentration", single_item("OLS_Concentration_rec")),
+  composite("SQ", multi_items("PSQI_C", 1:7)),
+  composite("L1", multi_items("rec_LEBA", 1:3)),
+  composite("L2", multi_items("rec_LEBA", 4:9)),
+  composite("L3", multi_items("rec_LEBA", 10:14)),
+  composite("L4", multi_items("rec_LEBA", 15:18)),
+  composite("L5", multi_items("rec_LEBA", 19:23)),
+  
+  composite("MEQ", multi_items("rec_MEQ", 1:19)),
+  composite("PA", multi_items("PA", 1:10)),
+  composite("Alertness", single_item("OLS_DecreasedDaytimeAlertness_rec")),
+  composite("Memory", single_item("OLS_Memory_rec")),
+  composite("NegA", multi_items("NegA", 1:10))
+   
+)
+#Stuctural Model
+simple_sm <- relationships(
+  paths(from = c("L1","L2","L3","L4","L5"), to = c("SQ", "MEQ", "PA","NegA", "Alertness", "Memory","Concentration")) ,
+  paths(from = c("Alertness", "PA","NegA", "SQ"), to = c("Memory", "Concentration")),
+  paths(from = c("MEQ","PA","NegA"), to = ("SQ"))
+)
+
+## Estimate the model 
+corp_rep_simple_model <- estimate_pls(data= LB,
+                                      measurement_model =simple_mm,
+                                      structural_model = simple_sm,
+                                      missing = mean_replacement,  
+                                      missing_value = NA)
+
+summary_simple_corp_rep <- summary(corp_rep_simple_model)
+plot(summary_simple_corp_rep$reliability)
+#Inspecting iteration
+summary_simple_corp_rep$iterations
+
+#Bootstrapping
+boot_simple_corp_rep <- bootstrap_model(seminr_model = corp_rep_simple_model,  nboot = 10000,  cores = NULL,seed = 123)
+
+#Store the summary of the bootstrapped model 
+sum_boot_simple_corp_rep <- summary(boot_simple_corp_rep, alpha=0.10) 
+#Inspection
+sum_boot_simple_corp_rep$bootstrapped_paths
+sum_boot_simple_corp_rep$bootstrapped_loadings
+```
+
+```{r inspection-path}
+#Evaluation of measurement models
+#Inspect of the indicator loadings
+summary_simple_corp_rep$loadings
+#Inspect of the indicator loadings reliability
+summary_simple_corp_rep$loadings^2
+# inspect Reliability $ Convergent validity
+summary_simple_corp_rep$reliability
+# Discriminant validity (Fornell-Larcker)
+summary_simple_corp_rep$validity$fl_criteria
+# Discriminant validity (HTMT)
+summary_simple_corp_rep$validity$htmt
+
+# inspect bootstrapped HTMT
+sum_boot_simple_corp_rep$bootstrapped_HTMT
+##Uppoer level of boothstrapped HTMT should be lower than .80/.90
+```
+
+```{r}
+#Evaluation of structural model
+
+# Colinearity (should be bellow 5)
+summary_simple_corp_rep$vif_antecedents
+
+#Strength of the structural paths
+sum_boot_simple_corp_rep <- summary(boot_simple_corp_rep, alpha=0.05) 
+all_path <- sum_boot_simple_corp_rep$bootstrapped_paths
+significant_paths <- as.data.frame(all_path) %>% 
+  filter(abs(`T Stat.`)>1.960)# p = 0.05
+#Total effects
+all_total_effect <- sum_boot_simple_corp_rep$bootstrapped_total_paths
+significant_total_effect <- as.data.frame(all_total_effect) %>% 
+  filter(abs(`T Stat.`)>1.960)# p = 0.05
+##Explanatory power: r^2
+summary_simple_corp_rep$paths
+summary_simple_corp_rep$fSquare
+
+```
+
+```{r prediction}
+#Inspecting prediction
+predict_corp_rep_ext <- predict_pls(  model = corp_rep_simple_model,  technique = predict_DA,  noFolds = 10,  reps = 10) 
+# Summarize the prediction results 
+sum_predict_corp_rep_ext <- summary(predict_corp_rep_ext)
+table(sum_predict_corp_rep_ext$PLS_out_of_sample[1,]<sum_predict_corp_rep_ext$LM_out_of_sample[1,])
+
+table(sum_predict_corp_rep_ext$PLS_out_of_sample[2,]<sum_predict_corp_rep_ext$LM_out_of_sample[2,])
+#Low predicting power
+```
+
+```{r path-model2}
+##Measeurement Model
+simple_mm_2 <- constructs(
+  composite("Concentration", single_item("OLS_Concentration_rec")),
+  composite("SQ", single_item("PSQI_SleepQuality")),
+  composite("L1", multi_items("rec_LEBA", 1:3)),
+  composite("L2", multi_items("rec_LEBA", 4:9)),
+  composite("L3", multi_items("rec_LEBA", 10:14)),
+  composite("L4", multi_items("rec_LEBA", 15:18)),
+  composite("L5", multi_items("rec_LEBA", 19:23)),
+  
+  composite("MEQ", single_item("MEQ_Total")),
+  # composite("PA", single_item("PANAS_PositiveAffect")),
+  composite("Alertness", single_item("KSS_Alertness")),
+  composite("Memory", single_item("OLS_Memory_rec"))
+  # composite("NegA", single_item("PANAS_NegativeAffect"))
+   
+)
+#Stuctural Model
+simple_sm_2 <- relationships(
+  
+  paths(from = c("L1","L2","L3","L4","L5"), to = c("SQ","MEQ",  "Alertness", "Memory","Concentration")) ,
+  paths(from = c("SQ"), to = c("Memory", "Concentration"))
+)
+
+## Estimate the model 
+corp_rep_simple_model_2 <- estimate_pls(data= LB,
+                                      measurement_model =simple_mm_2,
+                                      structural_model = simple_sm_2,
+                                      missing = mean_replacement,  
+                                      missing_value = NA)
+
+summary_simple_corp_rep_2 <- summary(corp_rep_simple_model_2)
+
+
+#Inspecting prediction
+predict_corp_rep_ext_2 <- predict_pls(  model = corp_rep_simple_model_2,  technique = predict_DA,  noFolds = 10,  reps = 10) 
+# Summarize the prediction results 
+sum_predict_corp_rep_ext_2 <- summary(predict_corp_rep_ext_2)
+(sum_predict_corp_rep_ext_2$PLS_out_of_sample<sum_predict_corp_rep_ext_2$LM_out_of_sample)
+
+(sum_predict_corp_rep_ext$PLS_out_of_sample<sum_predict_corp_rep_ext$LM_out_of_sample)
+
+```
+
+
+# Discussion
+
+\newpage
+
+# References
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs custom-style="Bibliography"}
+:::
+
+```{=tex}
+\endgroup
+```

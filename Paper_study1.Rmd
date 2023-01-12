@@ -1,0 +1,2002 @@
+---
+title             : "Light exposure related behaviors influences chronotype, sleep quality and trouble in memory and concentration: a partial least squares-path modeling Analysis"
+shorttitle        : "Online"
+
+author: 
+  - name          : "Mushfiqul Anwar Siraji"
+    affiliation   : "1"
+    corresponding : no    # Define only one corresponding author
+    address       : "Monash University"
+    email         : "mushfiqul.anwarsiraji@monash.pdf"
+    role:         
+      - Conceptualization
+      - Writing - Original Draft Preparation
+      - Writing - Review & Editing
+  - name          : "Vineetha Kalavally"
+    affiliation   : "2"
+    corresponding : no   # Define only one corresponding author
+    address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
+    email         : " vineetha@monash.edu"
+    role:
+      - Conceptualization
+      - Writing - Review & Editing
+  - name           : "Shamsul Haque"
+    affiliation   : "1"
+    corresponding : yes   # Define only one corresponding author
+    address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
+    email         : " shamsul@monash.edu"
+    role:
+      - Conceptualization
+      - Writing - Review & Editing
+     
+
+affiliation:
+  - id            : "1"
+    institution   : "Monash University, Department of Psychology, Jeffrey Cheah School of Medicine and Health Sciences, Malaysia"
+  - id            : "2"
+    institution   : "Monash University, Department of Electrical and Computer Systems Engineering, Malaysia, Selangor, Malaysia"
+
+  
+
+authornote: |
+  Department of Psychology, Jeffrey Cheah School of Medicine and Health Sciences, Monash University Malaysia.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : 
+  papaja::apa6_docx:
+    latex_engine: xelatex
+mainfont: Helvetica
+---
+
+```{r setup, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, dpi=600)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+set.seed(123)
+par(family = "Helvetica")
+```
+
+```{r library, include = FALSE}
+library(papaja)
+library(tidyverse)
+library(likert)
+library(scales)
+library(plotly)
+library(dlookr)
+library(psych)
+library(car)#leven's Test
+library(sjstats)# anova_statsr
+library(gt)
+library(gtsummary)
+library(gtExtras)
+library(ggplot2)
+library(MOTE)
+library(seminr)
+r_refs("references.bib")
+```
+
+```{r renv, eval=FALSE, include=FALSE}
+renv::snapshot()
+```
+
+```{r ggplot2, include=F}
+#This chunk holds code for creating ggplot2 based apatheme for plots.
+apatheme=theme_bw()+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        #text=element_text(family = "Helvetica"),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        plot.title = element_text(size = 15),
+        legend.text = element_text(size = 15),
+        legend.title=element_blank(),
+        axis.line.x = element_line(color='black'),
+        axis.line.y = element_line(color='black'),
+        panel.border = element_rect(color = "black",
+                                    fill = NA,
+                                    size = 1))
+
+```
+
+
+##Objectives: 
+We pose the following questions:
+1. What are the influences of light exposure related behaviour on our chronotype?
+2. What are the influences of light exposure related behaviour on sleep quality?
+3. What are the influences of light exposure related behaviour on trouble in memory and concentration?
+4. What are the influences of light exposure related behaviour on mood?
+
+
+
+
+## Hypothesis
+
+Light exposure related behaviour will successfully predict: Trouble in
+Concentration and memory Chronotype and Sleep quality Mood
+
+# Methods
+
+
+```{r data ,include=F}
+##Set up the data
+all.data <- readRDS("Light_survey_n_366.rds")
+
+incomplete <- all.data %>% 
+  filter(Finished == FALSE)
+data <- all.data %>% 
+  filter(Finished == TRUE)
+
+completion_rate <- nrow(data)/nrow(all.data)*100
+
+
+LB <- data %>% 
+  filter(Exclusion_Medication == "No" & Exclusion_Physical == "No"&Exclusion_Vision == "No" )
+
+exclusion <- nrow(data)-nrow(LB)
+
+## Recoding LB$OLS_Concentration into LB$OLS_Concentration_rec
+LB$OLS_Concentration_rec <- LB$OLS_Concentration %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+
+## Recoding LB$OLS_Memory into LB$OLS_Memory_rec
+LB$OLS_Memory_rec <- LB$OLS_Memory %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+LB$Num_of_Coffee_Weekdays <- as.numeric(LB$Num_of_Coffee_Weekdays)
+LB$Num_of_coffee_Weekend <- as.numeric(LB$Num_of_coffee_Weekend)
+
+## Recoding LB$OLS_DecreasedDaytimeAlertness into LB$OLS_DecreasedDaytimeAlertness_rec
+LB$OLS_DecreasedDaytimeAlertness_rec <- LB$OLS_DecreasedDaytimeAlertness %>%
+  fct_recode(
+    "0" = "Absent",
+    "2" = "Moderate",
+    "3" = "Severe",
+    "1" = "Slight"
+  ) %>%
+  as.character() %>%
+  as.numeric()
+
+
+## Recoding data$Work_Shift into data$Work_Shift_rec
+LB$Work_Shift_rec <- fct_recode(LB$Work_Shift,
+  "Day" = "Day Shift",
+  "Mixed" = "Mixed shift work (Both Night and day in alternating way)",
+  "Night" = "Night Shift"
+)
+
+## Recoding LB$rec_LEBA4
+LB$rec_LEBA4 <- as.character(LB$rec_LEBA4)
+LB$rec_LEBA4[LB$rec_LEBA4 == "1"] <- "5"
+LB$rec_LEBA4[LB$rec_LEBA4 == "2"] <- "4"
+LB$rec_LEBA4[LB$rec_LEBA4 == "3"] <- "3"
+LB$rec_LEBA4[LB$rec_LEBA4 == "4"] <- "2"
+LB$rec_LEBA4[LB$rec_LEBA4 == "5"] <- "1"
+LB$rec_LEBA4 <- as.numeric(LB$rec_LEBA4)
+
+# 
+## Recoding LB$PANAS_Hostile
+LB$PANAS_Hostile <- as.character(LB$PANAS_Hostile)
+LB$PANAS_Hostile[LB$PANAS_Hostile == "1"] <- "5"
+LB$PANAS_Hostile[LB$PANAS_Hostile == "2"] <- "4"
+LB$PANAS_Hostile[LB$PANAS_Hostile == "3"] <- "3"
+LB$PANAS_Hostile[LB$PANAS_Hostile == "4"] <- "2"
+LB$PANAS_Hostile[LB$PANAS_Hostile == "5"] <- "1"
+LB$PANAS_Hostile <- as.numeric(LB$PANAS_Hostile)
+
+## Recoding LB$PANAS_Jittery
+LB$PANAS_Jittery <- as.character(LB$PANAS_Jittery)
+LB$PANAS_Jittery[LB$PANAS_Jittery == "1"] <- "5"
+LB$PANAS_Jittery[LB$PANAS_Jittery == "2"] <- "4"
+LB$PANAS_Jittery[LB$PANAS_Jittery == "3"] <- "3"
+LB$PANAS_Jittery[LB$PANAS_Jittery == "4"] <- "2"
+LB$PANAS_Jittery[LB$PANAS_Jittery == "5"] <- "1"
+LB$PANAS_Jittery <- as.numeric(LB$PANAS_Jittery)
+
+
+Descriptives <- LB %>% 
+  dplyr::select( Age, Gender, Religion, Ethnicity, Marital_Status,
+                 Education,Primary_Occupation, Community_Stance,
+                 Time_of_day, PANAS_PositiveAffect, PANAS_NegativeAffect,
+                PSQI_SleepQuality,PSQI_Factor, SleepEnv_Total,
+                HLEA_lx,MEQ_Total,MEQ_Chronotype, LEBA_F1:LEBA_F5, Num_of_Coffee_Weekdays, Num_of_coffee_Weekend, Work_Shift, KSS_Alertness, OLS_Concentration, OLS_Memory)
+
+
+colnames(Descriptives) <- c( "Age", "Gender", "Religion", "Ethnicity",  "Marital_Status", "Education", "Occupation", "Community_Stance", "Time_of_ Day", "Positive_Affect", "Negative_Affect", "PSQI", "Sleep_Quality", "Sleep_Environment", "Avg_Corneal_Illuminance", "MEQ", "Chronotype", "LEBA1", "LEBA2", "LEBA3", "LEBA4", "LEBA5", "Cups_of_Coffee(Weekday)", "Cups_of Coffee(Weekend)", "Shift",
+                             "Subjective_Alertness", "Trouble_Concentration", "Trouble_in_Memory" )
+
+Descriptives$Age <- as.numeric(Descriptives$Age)
+Descriptives$`Cups_of Coffee(Weekend)` <- as.numeric(Descriptives$`Cups_of Coffee(Weekend)`)
+Descriptives$`Cups_of_Coffee(Weekday)` <- as.numeric(Descriptives$`Cups_of_Coffee(Weekday)`)
+Descriptives$Community_Stance <- as.numeric(Descriptives$Community_Stance)
+
+Gender.count <- data.frame(table(LB$Gender))
+Female <- Gender.count[1,2]
+Male <- Gender.count[2,2]
+
+demography <- Descriptives %>% 
+  psych::describe.by(group="Gender")
+```
+
+
+## Participants
+We conducted a large-scale online survey to gather data for this study. The inclusion criteria for respondents to be included in this study were as follows: (1) Malaysian resident >18 years of age and able to read and write English (2)  no physiological and psychological disorder (self reported) . `r nrow(all.data) ` adults completed the survey. However, we excluded `r nrow(incomplete)` participants, due to incomplete data (`r MOTE::apa(completion_rate,1,T)`$\%$ completion rate). We further excluded `r MOTE::apa(exclusion,1,T)` participants based on our inclusion criteria. Thus, we used we data form `r nrow(LB)` participants for further processing. A priori power analysis was done to determine adequate sample sizes with G$*$Power 3.0 [@faul2007g]. To achieve a effect size of .15 [@cohen1988statistical] and 80% statistical power and $alpha$=0.05, for a multiple liner multiple regression with 13 predictors will need a total sample of 131 individuals. Also, the maximum number of items per factor in our model was six.To detect minimum $R^2$ vale of 0.10 for a factor with six items with 80% statistical power and $alpha$=0.05 at least 130 participants are required [@hair2021primer]. Our sample size exceeded these recommendations. Out of `r nrow(LB)` participants `r printnum((Gender.count[1,2]/nrow(LB))*100)`% (`r Gender.count[1,2]`) were female ranging in age from `r demography$Female$min[1]` to
+`r demography$Female$max[1]` (`r demography$Female$mean[1]`±`r demography$Female$sd[1]`) and `r printnum((Gender.count[2,2]/nrow(LB))*100)`% (`r Gender.count[2,2]`) were male with an age range between `r demography$Male$min[1]` to `r demography$Male$max[1]` years (`r demography$Male$mean[1]`±`r demography$Male$sd[1]`). 78.66% of the participants were unmarried. Majority of the participants were students (71.42%). 56.29% participants had at least a Bachelor Degree.
+
+```{r LongDesc}
+
+library(kableExtra)
+Descriptives %>% 
+  tbl_summary(type = list(Subjective_Alertness ="continuous", 
+                            Age ="continuous", 
+                           Community_Stance ="continuous", 
+                           `Cups_of_Coffee(Weekday)` ="continuous",
+                           `Cups_of Coffee(Weekend)` = "continuous"),
+               missing = "no",
+  statistic = list(all_continuous()~ "{mean} ({sd})")
+) %>% modify_caption("Dempgraphics")  %>% 
+  as_kable(format = 'pipe')  %>% 
+  kable_styling(latex_options = c("scale_down","repeat_header")) %>% 
+  column_spec(1, width = "2cm")
+ 
+```
+
+```{r shortDes,include=F}
+tab.res <- LB %>% 
+  dplyr::select(PSQI_Factor, PANAS_PositiveAffect, PANAS_NegativeAffect,
+                HLEA_lx, LEBA_F1:LEBA_F5,  KSS_Alertness, OLS_Concentration, OLS_Memory)
+
+
+colnames(tab.res) <- c( "PSQI_Factor", "Positive_Affect", "Negative_Affect", "Avg_Corneal_Illuminance",  "LEBA1", "LEBA2", "LEBA3", "LEBA4", "LEBA5",
+                             "Subjective_Alertness", "Trouble_Concentration", "Trouble_in_Memory" )
+
+
+## Recoding tab.res$Trouble_Concentration into tab.res$Trouble_Concentration_rec
+tab.res$Trouble_Concentration <- fct_recode(tab.res$Trouble_Concentration,
+  "0" = "Absent",
+  "2" = "Moderate",
+  "3" = "Severe",
+  "1" = "Slight"
+)
+tab.res$Trouble_Concentration <- as.numeric(as.character(tab.res$Trouble_Concentration))
+
+## Recoding tab.res$Trouble_in_Memory
+tab.res$Trouble_in_Memory <- fct_recode(tab.res$Trouble_in_Memory,
+  "0" = "Absent",
+  "2" = "Moderate",
+  "3" = "Severe",
+  "1" = "Slight"
+)
+tab.res$Trouble_in_Memory <- as.numeric(as.character(tab.res$Trouble_in_Memory))
+
+
+gt_sum <- tab.res %>% 
+  tbl_summary(by = PSQI_Factor, type = list(Subjective_Alertness ="continuous",Trouble_Concentration = "continuous", Trouble_in_Memory = "continuous"), missing = "no",
+  statistic = list(all_continuous()~ "{mean} ({sd})")  
+  ) %>% 
+  add_p() %>% 
+    add_q()
+```
+
+## Material
+
+### Light exposure behaviour assessment.
+
+```{r LEBA-validation, eval=FALSE, include=FALSE}
+
+#LEBA_stem is created to get the item-stem
+LEBA_stem <- LB %>% 
+  dplyr::select(LEBA1:LEBA12,LEBA15,LEBA16,LEBA18, LEBA19,
+                LEBA20,LEBA22)
+#Rename to get the data in ordered fasion
+names(LEBA_stem)[names(LEBA_stem) == "LEBA1"] <- "LEBA01"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA2"] <- "LEBA02"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA3"] <- "LEBA03"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA4"] <- "LEBA04"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA5"] <- "LEBA05"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA6"] <- "LEBA06"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA7"] <- "LEBA07"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA8"] <- "LEBA08"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA9"] <- "LEBA09"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA10"] <- "LEBA10"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA11"] <- "LEBA11"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA12"] <- "LEBA12"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA15"] <- "LEBA13"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA16"] <- "LEBA14"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA18"] <- "LEBA15"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA19"] <- "LEBA16"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA20"] <- "LEBA17"
+names(LEBA_stem)[names(LEBA_stem) == "LEBA22"] <- "LEBA18"
+
+vars_labels = as.data.frame(sapply(LEBA_stem,
+       function(x){attr(x,"label")}))
+
+leba_vars_labels<- tibble::rownames_to_column(vars_labels, "Items")
+colnames(leba_vars_labels) <- c("Items", "Stem")
+
+#LEBA is created to do analysis
+LEBA <- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA12,rec_LEBA15,rec_LEBA16,rec_LEBA18, rec_LEBA19,
+                rec_LEBA20,rec_LEBA22)
+
+
+#Rename to get the data in ordered fasion
+names(LEBA)[names(LEBA) == "rec_LEBA1"] <- "LEBA01"
+names(LEBA)[names(LEBA) == "rec_LEBA2"] <- "LEBA02"
+names(LEBA)[names(LEBA) == "rec_LEBA3"] <- "LEBA03"
+names(LEBA)[names(LEBA) == "rec_LEBA4"] <- "LEBA04"
+names(LEBA)[names(LEBA) == "rec_LEBA5"] <- "LEBA05"
+names(LEBA)[names(LEBA) == "rec_LEBA6"] <- "LEBA06"
+names(LEBA)[names(LEBA) == "rec_LEBA7"] <- "LEBA07"
+names(LEBA)[names(LEBA) == "rec_LEBA8"] <- "LEBA08"
+names(LEBA)[names(LEBA) == "rec_LEBA9"] <- "LEBA09"
+names(LEBA)[names(LEBA) == "rec_LEBA10"] <- "LEBA10"
+names(LEBA)[names(LEBA) == "rec_LEBA11"] <- "LEBA11"
+names(LEBA)[names(LEBA) == "rec_LEBA12"] <- "LEBA12"
+names(LEBA)[names(LEBA) == "rec_LEBA15"] <- "LEBA13"
+names(LEBA)[names(LEBA) == "rec_LEBA16"] <- "LEBA14"
+names(LEBA)[names(LEBA) == "rec_LEBA18"] <- "LEBA15"
+names(LEBA)[names(LEBA) == "rec_LEBA19"] <- "LEBA16"
+names(LEBA)[names(LEBA) == "rec_LEBA20"] <- "LEBA17"
+names(LEBA)[names(LEBA) == "rec_LEBA22"] <- "LEBA18"
+
+#get a long data frame
+LEBA.long <- as.data.frame(gather(LEBA, "Items", "value"))
+LEBA.long$value <- as.numeric(LEBA.long$value)
+gt.LEBA <- LEBA.long %>% 
+  group_by(Items) %>% 
+# calculate summary stats & create data for the histogram and density plot
+  dplyr::summarise(
+    mean = mean(value, na.rm =T),
+    median= mean(value, na.rm =T),
+    sd = sd(value, na.rm = TRUE),
+    hist_data = list(value),
+    dens_data = list(value),
+    .groups = "drop"
+  ) %>% 
+  gt::gt() 
+
+#Preparation for likert data
+LEBA.likert <- as.data.frame(LEBA) 
+
+recod_LEBA <- c( "1" = "Never", "2" = "Rarely", "3"= "Sometimes","4" = "Often",
+                 "5" = "Always")
+LEBA.likert <-  mutate(LEBA.likert, across(starts_with("LEBA"), ~unname(recod_LEBA[.])))
+
+#using as.data.frame() is crucial
+LEBA.Factor = as.data.frame(lapply(LEBA.likert, factor,
+                                       ordered = T))
+#get the items name
+LEBA.items <- names(LEBA.Factor) 
+#Calculate percentage
+LEBA.percentage <- kutils::likert(LEBA.Factor, vlist = LEBA.items ) 
+
+LEBA.percentage <- LEBA.percentage$table %>% 
+  as.data.frame(.)
+
+#data wrangling
+labels <- c("Always", "Never","Often", "Rarely", "Sometimes","Total")
+as.data.frame(labels)
+
+full.LEBA.percentage <- cbind(labels,LEBA.percentage) #tables with labels  
+full.LEBA.percentage<- t(full.LEBA.percentage ) #transpose
+as.data.frame(full.LEBA.percentage)
+full.LEBA.percentage1 <- full.LEBA.percentage[-1,-6] #removing 1st row and total column
+full.LEBA.percentage2 <- full.LEBA.percentage1[, c(2, 4, 5, 3,1)]# rearranging
+as.data.frame(full.LEBA.percentage2)
+
+
+colnames(full.LEBA.percentage2) <- c("Never","Rarely","Sometimes","Often","Always")
+
+LEBA.Items <- rownames(full.LEBA.percentage2)
+as.data.frame(LEBA.Items)
+full.LEBA.percentage3 <- cbind(LEBA.Items,full.LEBA.percentage2)
+
+full.LEBA.percentage4 <- full.LEBA.percentage3[order(LEBA.Items),] 
+
+
+
+full.LEBA.percentage5 <- as.data.frame(full.LEBA.percentage4[,-1]) %>% 
+  gt::gt()
+
+
+gt.LEBA.table <- gt.LEBA$'_data'
+gt.LEBA.liket <- full.LEBA.percentage5$'_data'
+
+
+
+LEBATable <-  cbind( gt.LEBA.table, gt.LEBA.liket)
+
+LEBATable2 <- inner_join(leba_vars_labels, LEBATable, by ="Items")
+
+
+LEBATable2%>% 
+  gt::gt()%>% 
+# histogram and density plots
+  gtExtras::gt_plt_dist(
+    hist_data,
+    type = "histogram",
+    line_color = "black", 
+    fill_color = "grey",
+    bw = 1,
+    same_limit = TRUE)%>%
+  gtExtras::gt_plt_dist(
+    dens_data,
+    type = "density",
+    line_color = "black", 
+    fill_color = "grey",
+    bw = 0.75,
+    same_limit = TRUE
+  )%>%
+  # format decimals
+  gt::fmt_number(columns = mean:sd, decimals = 1) %>%
+  # header
+  gt::tab_header(
+    title = md("**LEBA**"),
+    subtitle = md("Summary results of LEBA (N =301)")
+  ) %>% 
+  gt::tab_footnote(
+    footnote = md("**Histogram**"),
+    locations = cells_column_labels(columns = hist_data)
+  ) %>%
+  gt::tab_footnote(
+    footnote = md("**Density**"),
+    locations = cells_column_labels(columns = dens_data)
+  ) %>% 
+  #create groups of columns
+  gt::tab_spanner(
+    label = "Items",
+    columns = Items:Stem
+  ) %>%
+  gt::tab_spanner(
+    label = "Summary Statistics",
+    columns = mean:sd
+  ) %>%
+  gt::tab_spanner(
+    label = "Graphics",
+    columns = hist_data:dens_data
+  ) %>% 
+  gt::tab_spanner(
+    label = "Response Pattern",
+    columns = Never:Always
+  ) %>%
+  # change column names to appear in the table
+  gt::cols_label(
+    Items = ("LEBA  Items"),
+    Stem = ("Stem"),
+    median = "Median",
+    mean = ("Mean"),
+    sd = (("SD")),
+    hist_data = "Histogram",
+    dens_data = "Density"
+  )  %>% 
+  # set alignment as per wish
+  gt::cols_align(
+    align = "center",
+    columns = mean:Always
+  ) %>%
+  gt::opt_align_table_header(align = "left") %>%
+  # add coloured dots and lines on the first column
+  
+  gt::tab_row_group(
+    label = "F1: Wearing blue light filters",
+    rows = 01:03) %>%
+ gt::tab_row_group(
+   label = "F2: Spending time outdoors",
+   rows = 04:09) %>% 
+  gt::tab_row_group(
+    label = "F3: Using phone and smartwatch in bed",
+    rows = 10:12) %>% 
+  gt::tab_row_group(
+    label = "F4: Using light before bedtime",
+    rows = 13:15) %>% 
+  gt::tab_row_group(
+    label = "F5: Using light in the morning and during daytime",
+    rows = 16:18)%>%
+  gt::row_group_order(
+    groups = c("F1: Wearing blue light filters", "F2: Spending time outdoors",
+               "F3: Using phone and smartwatch in bed", "F4: Using light before bedtime",
+               "F5: Using light in the morning and during daytime" ))%>%
+  tab_options(
+    table.font.size = px(14L)) %>% 
+  cols_width(
+    Stem ~ px(200)) %>% 
+  gt::gtsave("Figures/LEBA.png",vwidth = 6000)
+```
+
+
+Light exposure related behaviours was measured using the short form of Light Exposure Behaviour Assessment (LEBA)[@LEBA2022]. The short form contains five factors with 19 items. LEBA measures the propensity of different light exposure related behaviours in the last one month retrospectively using a five-point Likert type response scale (1 = never; 2 = rarely; 3 = sometimes; 4 = often; 5 = always). The first factor of LEBA (F1)
+investigate the propensity of wearing blue light filter glasses indoors and outdoors. The second factor (F2) measures how much time spend under sunlight. The third factor measures (F3) our habit of using smart devices in bed. The fourth factor(F4) looks into our habit of controlling light exposure before bedtime. The last factor (F5) captures our habit of using different electric light sources throughout the day. All 19 items of LEBA and and the participants' responses to them are shown in \@ref(fig:fig1).
+
+```{r fig1, fig.align= 'center', fig.cap="Response districution of LEBA",  warning=FALSE,  out.height='100%', out.width='100%'}
+
+knitr::include_graphics('Figures/LEBA.png', dpi =300)
+
+```
+
+
+### Positive and Negative Affect Schdule
+
+The positive and negative affect schedule (PANAS) [@watson1988development] was
+used to measure positive and negative affect. PANAS is comprised two 10-item mood scales measuring positive affect (PA) and negative affect (NA). The internal consistency reliability of the original scale was satisfactory (PA:0.88; NA:0.87) [@watson1988development]. In this study participants rate their positive and negative affect based on the last one month retrospectively using a five-point Likert type response scale (1 = very slightly/not at all; 2 = a little; 3 = moderately; 4 = quite a bit; 5 = extremely). 
+
+
+### Trouble in Memory and Concentration
+To assess trouble in memory and concentration we used two items with four-point Likert type response options. These two items asked the participants about the propensity of their memory and concentration difficulty in the last one month (0=Absent; 1=Slight; 2=Moderate; 3=Severe) 
+
+### Pittsburgh Sleep Quality Index
+
+We used the Pittsburgh Sleep Quality Index (PSQI) [@RN1183] to measure the sleep quality of the participants. PSQI measures seven domains of sleep to differentiate "poor" from "good" sleep. Participants responded to the PSQI using a Likert type responses option ranging from zero the three, whereby 3 reflects the negative extreme
+on the Likert Scale. A sum of scores equal to or greater than five
+indicates poor sleep quality. Though @RN1183 reported an one factor structure of the scale, there are evidence that the factor structure of PSQI varies from one factor to three factors [@manzar2018dimensionality]. @dunleavy2019examining in their study recommended to use a two-factor model: perceived sleep quality (PSQ) and sleep efficiency (SE) while measuring the sleep quality among Singapore citizen. In this study we followed their recommended structure.
+
+```{r PSQ-cfa, eval=FALSE, include=FALSE}
+library(lavaan)
+psqi_model1 <- "PSQ =~ PSQI_C1+PSQI_C2
+                  DD=~PSQI_C5+PSQI_C6+PSQI_C7
+                 SE =~ PSQI_C3 + PSQI_C4" 
+
+
+fit.Cor.1 <- lavaan::cfa(psqi_model1, data = LB,estimator = "ML") 
+
+## Summary of Model 
+cfa.sum.1 <- summary(fit.Cor.1, fit.measures =TRUE,standardized = TRUE,rsq =TRUE)
+
+
+## Selected Fit measures 
+fit.1 <- fitmeasures (fit.Cor.1,c("gfi", "agfi", "nfi","rfi", 
+                       "cfi.scaled","tli.scaled",
+                       "rmsea.scaled", "rmsea.ci.lower.scaled", "rmsea.ci.upper.scaled","srmr"))
+
+
+reliability1 <- semTools::reliability(fit.Cor.1)
+
+```
+
+
+### Morningness-Eveningness Questionnaire
+
+Chronotype was measured using Morningness-Eveningness questionnaire (MEQ) [@RN1185]. MEQ is consist of 19 questions and the scores range from 16 to 86. A higher score indicates more morning propensity. @caci2009comparing reported a four factor structure of MEQ: peak time (PT), morning affect (MA), retiring (RT) and rising (RI) in s student sample.
+
+
+```{r internalconsistancy, eval=FALSE, include=FALSE}
+#MEQ
+MEQ_IC <- data %>% 
+  dplyr::select(MEQ1_rec:MEQ19_rec)
+MEQ_IC.alpha <- psych::alpha(MEQ_IC, check.keys = T) 
+
+MEQ_IC.alpha.raw <- MEQ_IC.alpha $total$raw_alpha
+
+
+#PANAS
+PANAS_IC <- data %>% 
+  dplyr::select(PANAS_Interested:PANAS_Afraid)
+
+PANAS_IC.alpha <- psych::alpha(PANAS_IC, check.keys = T) 
+
+PANAS_IC.raw <- PANAS_IC.alpha $total$raw_alpha
+
+#PSQI
+PSQI_IC <- data %>% 
+  dplyr::select(PSQI_C1:PSQI_C7)
+PSQI_IC.alpha <- psych::alpha(PSQI_IC, check.keys = T) 
+
+PSQI_IC.raw <- PSQI_IC.alpha $total$raw_alpha
+
+
+#LEBA
+LEBA <- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA23)
+
+## Recoding LEBA$LEBA4
+# LEBA$rec_LEBA4 <- as.character(LEBA$rec_LEBA4)
+# LEBA$rec_LEBA4 <- fct_recode(LEBA$rec_LEBA4,
+#   "5" = "1",
+#   "4" = "2",
+#   "2" = "4",
+#   "1" = "5"
+# )
+
+LEBA_F1_IC <- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA3)
+
+LEBA_F2_IC <- LB %>% 
+  dplyr::select(rec_LEBA4:rec_LEBA9)
+LEBA_F3_IC <- LB %>% 
+  dplyr::select(rec_LEBA10:rec_LEBA14)
+LEBA_F4_IC <- data %>% 
+  dplyr::select(rec_LEBA15:rec_LEBA18)
+LEBA_F5_IC <- LB %>% 
+  dplyr::select(rec_LEBA19:rec_LEBA23)
+
+LEBA_F1_IC.alpha <- psych::alpha(LEBA_F1_IC, check.keys = T)
+LEBA_F2_IC.alpha <- psych::alpha(LEBA_F2_IC, check.keys = T)
+LEBA_F3_IC.alpha <- psych::alpha(LEBA_F3_IC, check.keys = T)
+LEBA_F4_IC.alpha <- psych::alpha(LEBA_F4_IC, check.keys = T)
+LEBA_F5_IC.alpha <- psych::alpha(LEBA_F5_IC, check.keys = T)
+
+LEBA_F1_IC.raw <- LEBA_F1_IC.alpha$total$raw_alpha
+LEBA_F2_IC.raw <- LEBA_F2_IC.alpha$total$raw_alpha
+LEBA_F3_IC.raw <- LEBA_F3_IC.alpha$total$raw_alpha
+LEBA_F4_IC.raw <- LEBA_F4_IC.alpha$total$raw_alpha
+LEBA_F5_IC.raw <- LEBA_F5_IC.alpha$total$raw_alpha
+
+```
+
+## Data Collection
+
+The project received ethics clearance from Monash University Human Research Ethics Committee (Project ID: 14786). A quantitative cross-sectional fully anonymous online survey was conducted. Participants were invited via email and social media (i.e., LinkedIn, Twitter, Facebook) with the attachment of an Explanatory Statement. It was mentioned in the explanatory statement that their participation was voluntary and that they could withdraw from participation anytime without being penalized. If the participants expressed happiness with the Explanatory Statement, a survey link was sent to them. At the beginning of the survey, their consent was recorded digitally. The survey took around 15 to 20 minutes for which they were not compensated. We collected the survey data between April 2022 and September 2022.
+
+## Analytic Strategy
+Our aim was to predict chronotype, sleep quality and trouble in memory and concentration from the light exposure related behaviour.  The partial least squares structural equation modelling (PLS-SEM) is best suited to formuate such predictive model [@hair2017pls]. We used partial least squares structural equation modelling  in R ([@R-base]; version 4.1.2) using "SeminR"[@R-seminr] package. Additionally, PLS-SEM is able to facilitate solution of models regardless of model complexity. 
+
+### Measurement Model Assessment
+First, we assessed the quality of measurement model. We excluded items with factor loading bellow .40 to increase the robustness of the measurement model [@hair2021primer].  Second, we estimated the internal consistency reliability estimates of each costruct. We reported both the lower bound estimate of reliability- Cronbach's $\alpha$  coefficient and upper bound estimate of reliability-construct reliability (CR). Both Cronbach's $\alpha$ and CR coefficient values range between 0 to 1, where higher values represent better reliability. As a general guideline Cronbach's $\alpha$ above .70 is considered satisfactory[@maccallum1994alternative; @mackenzie2005problem]. and value above .50 is considered acceptable [@hinton2014spss]. CR coefficient value .60 and above indicates satisfactory reliability[@hair2021primer]. 
+
+Third, We assessed the convergent and discriminant validity of the measurement model. We used the average variance extracted (AVE) value of each construct to assess convergent validity. To indicate satisfactory convergent validity the AVE value should be 0.50 and above [@fornell1981evaluating]. However, AVE value lower than 0.5 with a composite reliability coefficient higher than 0.6 also indicate acceptable convergent validity [@fornell1981evaluating]. We assessed the discriminant validity of the measurement model by comparing the square root of each construct's AVE with its correlation with other constructs [@fornell1981evaluating]. The square root of the AVE values of each construct should be higher than its correlation with other constructs. We have also reported the heterotrait-monotrait ratio (HTMT) of correlations of the construct to assess discriminant validity. For conceptually similar construct the HTMT value should be lower than .90 and for constructs which are conceptually distinct the HTMT value should be lower than .80 [@henseler2015new]. 
+
+### Structural Model Assessment
+
+First, we assessed collinearity of the constructs in our structural model by calculating variance inflation factor (VIF) values. VIF>5 indicates probable collinearity issues [@henseler2015new]. Next, we estimated the the path coefficients of the structural model  using a bootstrapping approach with 10000 sub samples and reported the significant total effects (p<0.05) observed in our model.Lastly we reported the adjusted $R^2$ as a measure of explanatory power of our model and $Q^2$ values for the constructs as a predictive relevance index of our model. For assessing the explanatory power we followed the guidelines of @falk1992primer : $R^2$ values $≥$ 0.10 indicates adequate explanatory power and categorize the values following and @cohen2013statistical guidelines : 0.02 (weak), 0.13 (moderate),  and 0.26 (substantial). $Q^2$>0 indicates good predictive relevance. We further assessed the fitted model's predictive power by K-fold cross-validation using the $PLS_{predict}$ function from "SeminR" package[@R-seminr]. $PLS_{predict}$ provides the root-mean-square error (RMSE) and respective linear-regression model(LM) benchmarks for all indicators. We assessed the model's predictive power by following the guideline of @sarstedt2021partial: (i) high predictive power- All indicators in the fitted PLS-SEM model have lower RMSE values compared to the linear regression (LM) benchmarks(ii) medium predictive power- the majority($≥$50%) of the indicators have lower RMSE values than LM (iii)low predictive power- less than 50% of the indicator have lower RMSE vale than LM the model has low predictive power, (iv) no predictive power- no indicator has lower RMSE value than LM model [@sarstedt2021partial]. Figure \@ref(fig:fig2) depicts the analyses steps we followed.
+
+```{r fig2, fig.align= 'center', fig.cap="Analyses Steps",  warning=FALSE,  out.height='100%', out.width='100%'}
+
+knitr::include_graphics('Figures/PLsSeM.png', dpi =300)
+
+```
+
+
+# Results
+
+```{r esem_leba, include=F}
+# devtools::install_github("MateusPsi/esemComp")
+library(esemComp)
+library(lavaan)
+esem_data_leba<- LB %>% 
+  dplyr::select(rec_LEBA1:rec_LEBA12,rec_LEBA15,rec_LEBA16,rec_LEBA18, rec_LEBA19,rec_LEBA20, rec_LEBA22 )
+
+
+
+
+
+#Rename variables
+# names(esem_data_LEBA) <- paste0("x", c(1:18))
+
+
+
+
+target_rot_leba <- esemComp::make_target(18,#Item number
+                                    mainloadings=list(
+                                      f1=1:3,
+                                      f2=4:9,
+                                      f3=10:12,
+                                      f4=13:15,
+                                      f5=16:18
+                                    ))
+
+
+leba_esem_tareget_efa <- esem_efa(esem_data_leba,nfactors=5, target= target_rot_leba, fm="ml")
+
+
+
+efa_tab_leab <- as.data.frame(apa((leba_esem_tareget_efa$loadings),2,T))
+#Find the referent item for each factor
+referents_leba <- find_referents(leba_esem_tareget_efa, factor_names = c("F1", "F2", "F3", "F4", "F5"))
+
+#make esem model
+esem_model_leba <- syntax_composer(leba_esem_tareget_efa, referents_leba)
+
+#print model
+# writeLines(esem_model)
+
+
+#Fit the model
+esem_fit_leba <- lavaan::cfa(esem_model_leba, esem_data_leba,ordered = names(esem_data_leba), estimator = "WLSMV", mimic = "Mplus", std.lv=T)
+
+summary(esem_fit_leba, fit.measures =TRUE,standardized = TRUE, rsq =TRUE)
+
+
+fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "cfi.scaled","tli.scaled","rmsea.scaled", "srmr","aic"))
+
+# rel.esm <- reliability(esem_fit, return.total = TRUE)
+# 
+# 
+# esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
+
+```
+
+
+```{r esem_PSQI, include=F}
+
+esem_data_psqi<- LB %>% 
+  dplyr::select(PSQI_C1,PSQI_C2,PSQI_C5,PSQI_C6,PSQI_C7, PSQI_C3, PSQI_C4 )
+
+
+
+
+
+#Rename variables
+# names(esem_data_LEBA) <- paste0("x", c(1:18))
+
+
+
+
+target_rot_psqi <- esemComp::make_target(7,#Item number
+                                    mainloadings=list(
+                                      f1=1:5,
+                                      f2=6:7
+                                    ))
+
+
+psqi_esem_tareget_efa <- esem_efa(esem_data_psqi,nfactors=2, target= target_rot_psqi, fm="ml")
+
+
+
+efa_tab_psqi <- as.data.frame(apa((psqi_esem_tareget_efa$loadings),2,T))
+#Find the referent item for each factor
+referents_psqi <- find_referents(psqi_esem_tareget_efa, factor_names = c("F1", "F2"))
+
+#make esem model
+esem_model_psqi <- syntax_composer(psqi_esem_tareget_efa, referents_psqi)
+
+#print model
+# writeLines(esem_model)
+
+
+#Fit the model
+esem_fit_psqi<- lavaan::cfa(esem_model_psqi, esem_data_psqi,ordered = names(esem_data_psqi), estimator = "WLSMV", mimic = "Mplus", std.lv=T)
+
+summary(esem_fit_psqi, fit.measures =TRUE,standardized = TRUE, rsq =TRUE)
+
+
+fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "cfi.scaled","tli.scaled","rmsea.scaled", "srmr","aic"))
+
+# rel.esm <- reliability(esem_fit, return.total = TRUE)
+# 
+# 
+# esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
+
+```
+
+
+```{r esem_MEQ, include=F}
+
+esem_data_meq<- LB %>% 
+  dplyr::select(MEQ11_rec,MEQ1_rec,MEQ18_rec,MEQ17_rec, MEQ9_rec,MEQ15_rec,
+                MEQ7_rec, MEQ4_rec, MEQ5_rec, MEQ6_rec, MEQ19_rec, MEQ8_rec,
+                MEQ2_rec, MEQ10_rec, MEQ14_rec, MEQ16_rec, MEQ12_rec, MEQ3_rec, MEQ13_rec)
+
+
+
+
+
+#Rename variables
+# names(esem_data_LEBA) <- paste0("x", c(1:18))
+
+
+
+
+target_rot_meq <- esemComp::make_target(19,#Item number
+                                    mainloadings=list(
+                                      f1=1:6,
+                                      f2=7:10,
+                                      f3=11:17,
+                                      f4=18:19
+                                    ))
+
+
+meq_esem_tareget_efa <- esem_efa(esem_data_meq,nfactors=4, target= target_rot_meq, fm="ml")
+
+
+
+#Find the referent item for each factor
+referents_meq <- find_referents(meq_esem_tareget_efa, factor_names = c("F1", "F2", "F3", "F4"))
+
+#make esem model
+esem_model_meq <- syntax_composer(meq_esem_tareget_efa, referents_meq)
+
+#print model
+# writeLines(esem_model)
+
+
+#Fit the model
+esem_fit_meq<- lavaan::cfa(esem_model_meq, esem_data_meq,ordered = names(esem_data_meq), estimator = "WLSMV", mimic = "Mplus", std.lv=T)
+
+summary(esem_fit_meq, fit.measures =TRUE,standardized = TRUE, rsq =TRUE)
+
+
+fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "cfi.scaled","tli.scaled","rmsea.scaled", "srmr","aic"))
+
+# rel.esm <- reliability(esem_fit, return.total = TRUE)
+# 
+# 
+# esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
+
+```
+
+
+```{r esem_PANAS, include=F}
+
+esem_data_panas<- LB %>% 
+  dplyr::select(PANAS_Interested, PANAS_Excited, PANAS_Strong, PANAS_Enthusiatic,
+                PANAS_Proud,PANAS_Alert,PANAS_Inspired,PANAS_Determined,PANAS_Attentive,PANAS_Active,
+                PANAS_Distressed,PANAS_Upset,PANAS_Guilty,PANAS_Scared,PANAS_Hostile, 
+                PANAS_Irritable,PANAS_Ashmed, PANAS_Nervous,PANAS_Jittery,PANAS_Afraid)
+
+
+
+
+# names(esem_data_panas) <- paste0("x", c(1:20))
+target_rot_panas <- esemComp::make_target(20,#Item number
+                                    mainloadings=list(
+                                      f1=1:10,
+                                      f2=11:20
+                                      
+                                    ))
+
+
+panas_esem_tareget_efa <- esem_efa(esem_data_panas,nfactors=2, target= target_rot_panas, fm="ml")
+
+
+
+#Find the referent item for each factor
+referents_panas <- find_referents(panas_esem_tareget_efa, factor_names = c("F1", "F2"))
+
+#make esem model
+esem_model_panas <- syntax_composer(panas_esem_tareget_efa, referents_panas)
+
+#print model
+# writeLines(esem_model)
+
+
+#Fit the model
+esem_fit_panas<- lavaan::cfa(esem_model_panas, esem_data_panas,ordered = names(esem_data_panas), estimator = "WLSMV", mimic = "Mplus", std.lv=T)
+
+summary(esem_fit_panas, fit.measures =TRUE,standardized = TRUE, rsq =TRUE)
+
+
+fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "cfi.scaled","tli.scaled","rmsea.scaled", "srmr","aic"))
+
+# rel.esm <- reliability(esem_fit, return.total = TRUE)
+# 
+# 
+# esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
+
+```
+
+```{r esem_results}
+esem_results <- tabledown::cfa.tab.multi(esem_fit_leba, esem_fit_psqi, esem_fit_meq, esem_fit_panas, robust=F)
+
+```
+
+
+```{r renaming-1, include =F}
+#This code holds the renaming code for first PLS-Sem
+LB_1 <- LB
+
+
+#MEQ 
+# 11, 1, 18, 17, 9,15; Peak Time
+names(LB_1)[names(LB_1) == "MEQ11_rec"] <- "MEQ_F1_item1"
+names(LB_1)[names(LB_1) == "MEQ1_rec"] <- "MEQ_F1_item2"
+names(LB_1)[names(LB_1) == "MEQ18_rec"] <- "MEQ_F1_item3"
+names(LB_1)[names(LB_1) == "MEQ17_rec"] <- "MEQ_F1_item4"
+names(LB_1)[names(LB_1) == "MEQ9_rec"] <- "MEQ_F1_item5"
+names(LB_1)[names(LB_1) == "MEQ15_rec"] <- "MEQ_F1_item6"
+
+# 7,4,5,6: Morning Affect
+names(LB_1)[names(LB_1) == "MEQ7_rec"] <- "MEQ_F2_item1"
+names(LB_1)[names(LB_1) == "MEQ4_rec"] <- "MEQ_F2_item2"
+names(LB_1)[names(LB_1) == "MEQ5_rec"] <- "MEQ_F2_item3"
+names(LB_1)[names(LB_1) == "MEQ6_rec"] <- "MEQ_F2_item4"
+# 19,8,2,10,14,16, 12: Retiting
+names(LB_1)[names(LB_1) == "MEQ19_rec"] <- "MEQ_F3_item1"
+names(LB_1)[names(LB_1) == "MEQ8_rec"] <- "MEQ_F3_item2"
+names(LB_1)[names(LB_1) == "MEQ2_rec"] <- "MEQ_F3_item3"
+names(LB_1)[names(LB_1) == "MEQ10_rec"] <- "MEQ_F3_item4"
+names(LB_1)[names(LB_1) == "MEQ14_rec"] <- "MEQ_F3_item5"
+names(LB_1)[names(LB_1) == "MEQ16_rec"] <- "MEQ_F3_item6"
+names(LB_1)[names(LB_1) == "MEQ12_rec"] <- "MEQ_F3_item7"
+
+# 3,13: Rising
+names(LB_1)[names(LB_1) == "MEQ3_rec"] <- "MEQ_F4_item1"
+names(LB_1)[names(LB_1) == "MEQ13_rec"] <- "MEQ_F4_item2"
+
+
+#Positive Affects
+
+names(LB_1)[names(LB_1) == "PANAS_Interested"] <- "PA1"
+names(LB_1)[names(LB_1) == "PANAS_Excited"] <- "PA2"
+names(LB_1)[names(LB_1) == "PANAS_Strong"] <- "PA3"
+names(LB_1)[names(LB_1) == "PANAS_Enthusiatic"] <- "PA4"
+names(LB_1)[names(LB_1) == "PANAS_Proud"] <- "PA5"
+names(LB_1)[names(LB_1) == "PANAS_Alert"] <- "PA6"
+names(LB_1)[names(LB_1) == "PANAS_Inspired"] <- "PA7"
+names(LB_1)[names(LB_1) == "PANAS_Determined"] <- "PA8"
+names(LB_1)[names(LB_1) == "PANAS_Attentive"] <- "PA9"
+names(LB_1)[names(LB_1) == "PANAS_Active"] <- "PA10"
+
+#Negative Affescts
+
+
+names(LB_1)[names(LB_1) == "PANAS_Distressed"] <- "NegA1"
+names(LB_1)[names(LB_1) == "PANAS_Upset"] <- "NegA2"
+names(LB_1)[names(LB_1) == "PANAS_Guilty"] <- "NegA3"
+names(LB_1)[names(LB_1) == "PANAS_Scared"] <- "NegA4"
+names(LB_1)[names(LB_1) == "PANAS_Hostile"] <- "NegA5"
+names(LB_1)[names(LB_1) == "PANAS_Irritable"] <- "NegA6"
+names(LB_1)[names(LB_1) == "PANAS_Ashmed"] <- "NegA7"
+names(LB_1)[names(LB_1) == "PANAS_Nervous"] <- "NegA8"
+names(LB_1)[names(LB_1) == "PANAS_Jittery"] <- "NegA9"
+names(LB_1)[names(LB_1) == "PANAS_Afraid"] <- "NegA10"
+
+
+#LEBA short
+names(LB_1)[names(LB_1) == "rec_LEBA1"] <- "LEBA_F1_item1"
+names(LB_1)[names(LB_1) == "rec_LEBA2"] <- "LEBA_F1_item2"
+names(LB_1)[names(LB_1) == "rec_LEBA3"] <- "LEBA_F1_item3"
+
+names(LB_1)[names(LB_1) == "rec_LEBA4"] <- "LEBA_F2_item1"
+names(LB_1)[names(LB_1) == "rec_LEBA5"] <- "LEBA_F2_item2"
+names(LB_1)[names(LB_1) == "rec_LEBA6"] <- "LEBA_F2_item3"
+names(LB_1)[names(LB_1) == "rec_LEBA7"] <- "LEBA_F2_item4"
+names(LB_1)[names(LB_1) == "rec_LEBA8"] <- "LEBA_F2_item5"
+names(LB_1)[names(LB_1) == "rec_LEBA9"] <- "LEBA_F2_item6"
+
+names(LB_1)[names(LB_1) == "rec_LEBA10"] <- "LEBA_F3_item1"
+names(LB_1)[names(LB_1) == "rec_LEBA11"] <- "LEBA_F3_item2"
+names(LB_1)[names(LB_1) == "rec_LEBA12"] <- "LEBA_F3_item3"
+
+names(LB_1)[names(LB_1) == "rec_LEBA15"] <- "LEBA_F4_item1"
+names(LB_1)[names(LB_1) == "rec_LEBA16"] <- "LEBA_F4_item2"
+names(LB_1)[names(LB_1) == "rec_LEBA18"] <- "LEBA_F4_item3"
+  
+names(LB_1)[names(LB_1) == "rec_LEBA19"] <- "LEBA_F5_item1"
+names(LB_1)[names(LB_1) == "rec_LEBA20"] <- "LEBA_F5_item2"
+names(LB_1)[names(LB_1) == "rec_LEBA22"] <- "LEBA_F5_item3"
+
+
+
+#Subjective sleep quality
+names(LB_1)[names(LB_1) == "PSQI_C1"] <- "PSQ1"
+# Sleep Latency
+names(LB_1)[names(LB_1) == "PSQI_C2"] <- "PSQ2"
+
+# Sleep Duration
+names(LB_1)[names(LB_1) == "PSQI_C3"] <- "Sleep_efficieny1"
+
+# Habitual sleep efficiency
+names(LB_1)[names(LB_1) == "PSQI_C4"] <- "Sleep_efficieny2"
+
+# sleep Disturbance
+names(LB_1)[names(LB_1) == "PSQI_C5"] <- "PSQ3"
+
+# Sleep Medication
+names(LB_1)[names(LB_1) == "PSQI_C6"] <- "PSQ4"
+
+# Daytime Dysfunction
+names(LB_1)[names(LB_1) == "PSQI_C7"] <- "PSQ5"
+
+
+```
+
+
+```{r pls-sem1, include =F}
+#PLS-sem Model-1
+##Measurement Model
+measurment_model_1 <- constructs(
+  composite("Concentration", single_item("OLS_Concentration_rec")),
+  composite("PSQ", multi_items("PSQ", 1:5)),
+  composite("SE", multi_items("Sleep_efficieny", 1:2)),
+  composite("L1", multi_items("LEBA_F1_item", 1:3)),
+  composite("L2", multi_items("LEBA_F2_item", 1:6)),
+  composite("L3", multi_items("LEBA_F3_item", 1:3)),
+  composite("L4", multi_items("LEBA_F4_item", 1:3)),
+  composite("L5", multi_items("LEBA_F5_item", 1:3)),
+  
+  composite("PT", multi_items("MEQ_F1_item", 1:6)),
+composite("MA", multi_items("MEQ_F2_item", 1:4)),
+  composite("RT", multi_items("MEQ_F3_item", 1:7)),
+  composite("RI", multi_items("MEQ_F4_item", 1:2)),
+  composite("PA", multi_items("PA", 1:10)),
+  composite("Memory", single_item("OLS_Memory_rec")),
+  composite("NegA", multi_items("NegA", 1:10))
+   
+)
+#Stuctural Model
+structural_model_1 <- relationships(
+  paths(from = c("L1","L2","L3","L4","L5"), to = c("PSQ","SE", "PA", "NegA", "Memory","Concentration", "PT", "MA", "RT", "RI")) ,
+  paths(from = c( "PA","NegA", "PSQ", "SE"), to = c("Memory", "Concentration")),
+  paths(from = c("PA","NegA", "PT", "MA", "RT", "RI"), to = c("PSQ", "SE"))
+)
+
+## Estimate the model 
+model_estimation_1 <- estimate_pls(data= LB_1,
+                                      measurement_model =measurment_model_1,
+                                      structural_model = structural_model_1,
+                                      missing = mean_replacement,  
+                                      missing_value = NA)
+
+model_summary_1 <- summary(model_estimation_1)
+plot(model_summary_1$reliability)
+#Inspecting iteration
+model_summary_1$iterations
+
+loadings.1 <- as.data.frame(model_summary_1$loadings)
+loadings.1 <- rownames_to_column(loadings.1)
+reliability.1 <- as.data.frame(model_summary_1$reliability)
+reliability.1 <- rownames_to_column(reliability.1)
+
+```
+
+```{r measurment-model-1, include=F}
+#This block contains codes for the building blocks of measurement model table 1
+
+#loadings
+mm1_factor_loading_PSQ_item1 <- loadings.1[loadings.1$rowname == "PSQ1", "PSQ"]
+mm1_factor_loading_PSQ_item2 <- loadings.1[loadings.1$rowname == "PSQ2", "PSQ"]
+mm1_factor_loading_PSQ_item3 <- loadings.1[loadings.1$rowname == "PSQ3", "PSQ"]
+mm1_factor_loading_PSQ_item4 <- loadings.1[loadings.1$rowname == "PSQ4", "PSQ"]
+mm1_factor_loading_PSQ_item5 <- loadings.1[loadings.1$rowname == "PSQ5", "PSQ"]
+mm1_factor_loading_Sleep_Eff_item1 <- loadings.1[loadings.1$rowname == "Sleep_efficieny1", "SE"]
+mm1_factor_loading_Sleep_Eff_item2 <- loadings.1[loadings.1$rowname == "Sleep_efficieny2", "SE"]
+mm1_factor_loading_L1_item1 <- loadings.1[loadings.1$rowname == "LEBA_F1_item1", "L1"]
+mm1_factor_loading_L1_item2 <- loadings.1[loadings.1$rowname == "LEBA_F1_item2", "L1"]
+mm1_factor_loading_L1_item3 <- loadings.1[loadings.1$rowname == "LEBA_F1_item3", "L1"]
+mm1_factor_loading_L2_item1 <- loadings.1[loadings.1$rowname == "LEBA_F2_item1", "L2"]
+mm1_factor_loading_L2_item2 <- loadings.1[loadings.1$rowname == "LEBA_F2_item2", "L2"]
+mm1_factor_loading_L2_item3 <- loadings.1[loadings.1$rowname == "LEBA_F2_item3", "L2"]
+mm1_factor_loading_L2_item4 <- loadings.1[loadings.1$rowname == "LEBA_F2_item4", "L2"]
+mm1_factor_loading_L2_item5 <- loadings.1[loadings.1$rowname == "LEBA_F2_item5", "L2"]
+mm1_factor_loading_L2_item6 <- loadings.1[loadings.1$rowname == "LEBA_F2_item6", "L2"]
+mm1_factor_loading_L3_item1 <- loadings.1[loadings.1$rowname == "LEBA_F3_item1", "L3"]
+mm1_factor_loading_L3_item2 <- loadings.1[loadings.1$rowname == "LEBA_F3_item2", "L3"]
+mm1_factor_loading_L3_item3 <- loadings.1[loadings.1$rowname == "LEBA_F3_item3", "L3"]
+mm1_factor_loading_L4_item1 <- loadings.1[loadings.1$rowname == "LEBA_F4_item1", "L4"]
+mm1_factor_loading_L4_item2 <- loadings.1[loadings.1$rowname == "LEBA_F4_item2", "L4"]
+mm1_factor_loading_L4_item3 <- loadings.1[loadings.1$rowname == "LEBA_F4_item3", "L4"]
+mm1_factor_loading_L5_item1 <- loadings.1[loadings.1$rowname == "LEBA_F5_item1", "L5"]
+mm1_factor_loading_L5_item2 <- loadings.1[loadings.1$rowname == "LEBA_F5_item2", "L5"]
+mm1_factor_loading_L5_item3 <- loadings.1[loadings.1$rowname == "LEBA_F5_item3", "L5"]
+mm1_factor_loading_MEQ_F1_item1 <- loadings.1[loadings.1$rowname == "MEQ_F1_item1", "PT"]
+mm1_factor_loading_MEQ_F1_item2 <- loadings.1[loadings.1$rowname == "MEQ_F1_item2", "PT"]
+mm1_factor_loading_MEQ_F1_item3 <- loadings.1[loadings.1$rowname == "MEQ_F1_item3", "PT"]
+mm1_factor_loading_MEQ_F1_item4 <- loadings.1[loadings.1$rowname == "MEQ_F1_item4", "PT"]
+mm1_factor_loading_MEQ_F1_item5 <- loadings.1[loadings.1$rowname == "MEQ_F1_item5", "PT"]
+mm1_factor_loading_MEQ_F1_item6 <- loadings.1[loadings.1$rowname == "MEQ_F1_item6", "PT"]
+mm1_factor_loading_MEQ_F2_item1 <- loadings.1[loadings.1$rowname == "MEQ_F2_item1", "MA"]
+mm1_factor_loading_MEQ_F2_item2 <- loadings.1[loadings.1$rowname == "MEQ_F2_item2", "MA"]
+mm1_factor_loading_MEQ_F2_item3 <- loadings.1[loadings.1$rowname == "MEQ_F2_item3", "MA"]
+mm1_factor_loading_MEQ_F2_item4 <- loadings.1[loadings.1$rowname == "MEQ_F2_item4", "MA"]
+mm1_factor_loading_MEQ_F3_item1 <- loadings.1[loadings.1$rowname == "MEQ_F3_item1", "RT"]
+mm1_factor_loading_MEQ_F3_item2 <- loadings.1[loadings.1$rowname == "MEQ_F3_item2", "RT"]
+mm1_factor_loading_MEQ_F3_item3 <- loadings.1[loadings.1$rowname == "MEQ_F3_item3", "RT"]
+mm1_factor_loading_MEQ_F3_item4 <- loadings.1[loadings.1$rowname == "MEQ_F3_item4", "RT"]
+mm1_factor_loading_MEQ_F3_item5 <- loadings.1[loadings.1$rowname == "MEQ_F3_item5", "RT"]
+mm1_factor_loading_MEQ_F3_item6 <- loadings.1[loadings.1$rowname == "MEQ_F3_item6", "RT"]
+mm1_factor_loading_MEQ_F3_item7 <- loadings.1[loadings.1$rowname == "MEQ_F3_item7", "RT"]
+mm1_factor_loading_MEQ_F4_item1 <- loadings.1[loadings.1$rowname == "MEQ_F4_item1", "RI"]
+mm1_factor_loading_MEQ_F4_item2 <- loadings.1[loadings.1$rowname == "MEQ_F4_item2", "RI"]
+mm1_factor_loading_PA_item1 <- loadings.1[loadings.1$rowname == "PA1", "PA"]
+mm1_factor_loading_PA_item2 <- loadings.1[loadings.1$rowname == "PA2", "PA"]
+mm1_factor_loading_PA_item3 <- loadings.1[loadings.1$rowname == "PA3", "PA"]
+mm1_factor_loading_PA_item4 <- loadings.1[loadings.1$rowname == "PA4", "PA"]
+mm1_factor_loading_PA_item5 <- loadings.1[loadings.1$rowname == "PA5", "PA"]
+mm1_factor_loading_PA_item6 <- loadings.1[loadings.1$rowname == "PA6", "PA"]
+mm1_factor_loading_PA_item7 <- loadings.1[loadings.1$rowname == "PA7", "PA"]
+mm1_factor_loading_PA_item8 <- loadings.1[loadings.1$rowname == "PA8", "PA"]
+mm1_factor_loading_PA_item9 <- loadings.1[loadings.1$rowname == "PA9", "PA"]
+mm1_factor_loading_PA_item10 <- loadings.1[loadings.1$rowname == "PA10", "PA"]
+mm1_factor_loading_Neg_item1 <- loadings.1[loadings.1$rowname == "NegA1", "NegA"]
+mm1_factor_loading_Neg_item2 <- loadings.1[loadings.1$rowname == "NegA2", "NegA"]
+mm1_factor_loading_Neg_item3 <- loadings.1[loadings.1$rowname == "NegA3", "NegA"]
+mm1_factor_loading_Neg_item4 <- loadings.1[loadings.1$rowname == "NegA4", "NegA"]
+mm1_factor_loading_Neg_item5 <- loadings.1[loadings.1$rowname == "NegA5", "NegA"]
+mm1_factor_loading_Neg_item6 <- loadings.1[loadings.1$rowname == "NegA6", "NegA"]
+mm1_factor_loading_Neg_item7 <- loadings.1[loadings.1$rowname == "NegA7", "NegA"]
+mm1_factor_loading_Neg_item8 <- loadings.1[loadings.1$rowname == "NegA8", "NegA"]
+mm1_factor_loading_Neg_item9 <- loadings.1[loadings.1$rowname == "NegA9", "NegA"]
+mm1_factor_loading_Neg_item10 <- loadings.1[loadings.1$rowname == "NegA10", "NegA"]
+
+#Cronbach alpha
+mm1_cronbach_PSQ <- reliability.1[reliability.1$rowname== "PSQ", "alpha"]
+mm1_cronbach_SE <- reliability.1[reliability.1$rowname== "SE", "alpha"]
+mm1_cronbach_L1 <- reliability.1[reliability.1$rowname== "L1", "alpha"]
+mm1_cronbach_L2<- reliability.1[reliability.1$rowname== "L2", "alpha"]
+mm1_cronbach_L3<- reliability.1[reliability.1$rowname== "L3", "alpha"]
+mm1_cronbach_L4<- reliability.1[reliability.1$rowname== "L4", "alpha"]
+mm1_cronbach_L5<- reliability.1[reliability.1$rowname== "L5", "alpha"]
+mm1_cronbach_PT<- reliability.1[reliability.1$rowname== "PT", "alpha"]
+mm1_cronbach_MA<- reliability.1[reliability.1$rowname== "MA", "alpha"]
+mm1_cronbach_RT<- reliability.1[reliability.1$rowname== "RT", "alpha"]
+mm1_cronbach_RI<- reliability.1[reliability.1$rowname== "RI", "alpha"]
+mm1_cronbach_PA<- reliability.1[reliability.1$rowname== "PA", "alpha"]
+mm1_cronbach_Neg<- reliability.1[reliability.1$rowname== "NegA", "alpha"]
+
+
+#CR
+mm1_cr_PSQ <- reliability.1[reliability.1$rowname== "PSQ", "rhoC"]
+mm1_cr_SE <- reliability.1[reliability.1$rowname== "SE", "rhoC"]
+mm1_cr_L1 <- reliability.1[reliability.1$rowname== "L1", "rhoC"]
+mm1_cr_L2<- reliability.1[reliability.1$rowname== "L2", "rhoC"]
+mm1_cr_L3<- reliability.1[reliability.1$rowname== "L3", "rhoC"]
+mm1_cr_L4<- reliability.1[reliability.1$rowname== "L4", "rhoC"]
+mm1_cr_L5<- reliability.1[reliability.1$rowname== "L5", "rhoC"]
+mm1_cr_PT<- reliability.1[reliability.1$rowname== "PT", "rhoC"]
+mm1_cr_MA<- reliability.1[reliability.1$rowname== "MA", "rhoC"]
+mm1_cr_RT<- reliability.1[reliability.1$rowname== "RT", "rhoC"]
+mm1_cr_RI<- reliability.1[reliability.1$rowname== "RI", "rhoC"]
+mm1_cr_PA<- reliability.1[reliability.1$rowname== "PA", "rhoC"]
+mm1_cr_Neg<- reliability.1[reliability.1$rowname== "NegA", "rhoC"]
+
+
+
+#AVE
+mm1_ave_PSQ <- reliability.1[reliability.1$rowname== "PSQ", "AVE"]
+mm1_ave_SE <- reliability.1[reliability.1$rowname== "SE", "AVE"]
+mm1_ave_L1 <- reliability.1[reliability.1$rowname== "L1", "AVE"]
+mm1_ave_L2<- reliability.1[reliability.1$rowname== "L2", "AVE"]
+mm1_ave_L3<- reliability.1[reliability.1$rowname== "L3", "AVE"]
+mm1_ave_L4<- reliability.1[reliability.1$rowname== "L4", "AVE"]
+mm1_ave_L5<- reliability.1[reliability.1$rowname== "L5", "AVE"]
+mm1_ave_PT<- reliability.1[reliability.1$rowname== "PT", "AVE"]
+mm1_ave_MA<- reliability.1[reliability.1$rowname== "MA", "AVE"]
+mm1_ave_RT<- reliability.1[reliability.1$rowname== "RT", "AVE"]
+mm1_ave_RI<- reliability.1[reliability.1$rowname== "RI", "AVE"]
+mm1_ave_PA<- reliability.1[reliability.1$rowname== "PA", "AVE"]
+mm1_ave_Neg<- reliability.1[reliability.1$rowname== "NegA", "AVE"]
+
+```
+
+```{r measurment-model-tb1,include=F}
+measurment_table1 <- as.data.frame(matrix("",nrow=66,ncol=5))
+measurment_table_names <- c("Constructs","Factor Loading","Cronbach's alpha","CR","AVE")
+colnames(measurment_table1) <- (measurment_table_names)
+
+measurment_table1$Constructs <- loadings.1$rowname
+
+
+#Col2
+measurment_table1[1,2] <- 1
+measurment_table1[2,2] <- mm1_factor_loading_PSQ_item1
+measurment_table1[3,2] <- mm1_factor_loading_PSQ_item2
+measurment_table1[4,2] <-mm1_factor_loading_PSQ_item3
+measurment_table1[5,2] <- mm1_factor_loading_PSQ_item4
+measurment_table1[6,2] <- mm1_factor_loading_PSQ_item5
+measurment_table1[7,2] <- mm1_factor_loading_Sleep_Eff_item1
+measurment_table1[8,2] <- mm1_factor_loading_Sleep_Eff_item2
+measurment_table1[9,2] <- mm1_factor_loading_L1_item1
+measurment_table1[10,2] <- mm1_factor_loading_L1_item2
+measurment_table1[11,2] <- mm1_factor_loading_L1_item3
+measurment_table1[12,2] <- mm1_factor_loading_L2_item1
+measurment_table1[13,2] <- mm1_factor_loading_L2_item2
+measurment_table1[14,2] <- mm1_factor_loading_L2_item3
+measurment_table1[15,2] <- mm1_factor_loading_L2_item4
+measurment_table1[16,2] <- mm1_factor_loading_L2_item5
+measurment_table1[17,2] <- mm1_factor_loading_L2_item6
+measurment_table1[18,2] <- mm1_factor_loading_L3_item1
+measurment_table1[19,2]<- mm1_factor_loading_L3_item2
+measurment_table1[20,2]<- mm1_factor_loading_L3_item3
+measurment_table1[21,2]<- mm1_factor_loading_L4_item1
+measurment_table1[22,2]<- mm1_factor_loading_L4_item2
+measurment_table1[23,2]<- mm1_factor_loading_L4_item3
+measurment_table1[24,2]<- mm1_factor_loading_L5_item1
+measurment_table1[25,2]<- mm1_factor_loading_L5_item2
+measurment_table1[26,2]<- mm1_factor_loading_L5_item3
+measurment_table1[27,2] <-mm1_factor_loading_MEQ_F1_item1
+measurment_table1[28,2]<- mm1_factor_loading_MEQ_F1_item2
+measurment_table1[29,2]<- mm1_factor_loading_MEQ_F1_item3
+measurment_table1[30,2]<- mm1_factor_loading_MEQ_F1_item4
+measurment_table1[31,2]<- mm1_factor_loading_MEQ_F1_item5
+measurment_table1[32,2]<- mm1_factor_loading_MEQ_F1_item6
+measurment_table1[33,2]<- mm1_factor_loading_MEQ_F2_item1
+measurment_table1[34,2]<- mm1_factor_loading_MEQ_F2_item2
+measurment_table1[35,2]<- mm1_factor_loading_MEQ_F2_item3
+measurment_table1[36,2]<- mm1_factor_loading_MEQ_F2_item4
+measurment_table1[37,2]<- mm1_factor_loading_MEQ_F3_item1
+measurment_table1[38,2]<- mm1_factor_loading_MEQ_F3_item2
+measurment_table1[39,2]<- mm1_factor_loading_MEQ_F3_item3
+measurment_table1[40,2]<- mm1_factor_loading_MEQ_F3_item4
+measurment_table1[41,2]<- mm1_factor_loading_MEQ_F3_item5
+measurment_table1[42,2]<- mm1_factor_loading_MEQ_F3_item6
+measurment_table1[43,2]<- mm1_factor_loading_MEQ_F3_item7
+measurment_table1[44,2]<- mm1_factor_loading_MEQ_F4_item1
+measurment_table1[45,2]<- mm1_factor_loading_MEQ_F4_item2
+measurment_table1[46,2] <- mm1_factor_loading_PA_item1 
+measurment_table1[47,2]<- mm1_factor_loading_PA_item2
+measurment_table1[48,2]<- mm1_factor_loading_PA_item3
+measurment_table1[49,2]<- mm1_factor_loading_PA_item4
+measurment_table1[50,2]<- mm1_factor_loading_PA_item5
+measurment_table1[51,2]<- mm1_factor_loading_PA_item6
+measurment_table1[52,2]<- mm1_factor_loading_PA_item7
+measurment_table1[53,2]<- mm1_factor_loading_PA_item8
+measurment_table1[54,2]<- mm1_factor_loading_PA_item9
+measurment_table1[55,2]<- mm1_factor_loading_PA_item10
+measurment_table1[56,2] <- 1
+measurment_table1[57,2] <- mm1_factor_loading_Neg_item1
+measurment_table1[58,2]<- mm1_factor_loading_Neg_item2
+measurment_table1[59,2]<- mm1_factor_loading_Neg_item3
+measurment_table1[60,2]<- mm1_factor_loading_Neg_item4
+measurment_table1[61,2]<- mm1_factor_loading_Neg_item5
+measurment_table1[62,2]<- mm1_factor_loading_Neg_item6
+measurment_table1[63,2]<- mm1_factor_loading_Neg_item7
+measurment_table1[64,2]<- mm1_factor_loading_Neg_item8
+measurment_table1[65,2]<- mm1_factor_loading_Neg_item9
+measurment_table1[66,2]<- mm1_factor_loading_Neg_item10
+
+#Col3
+measurment_table1[1,3] <- 1
+measurment_table1[2,3] <- mm1_cronbach_PSQ
+measurment_table1[7,3] <- mm1_cronbach_SE
+measurment_table1[9,3] <- mm1_cronbach_L1
+measurment_table1[12,3] <- mm1_cronbach_L2
+measurment_table1[18,3] <- mm1_cronbach_L3
+measurment_table1[21,3]  <- mm1_cronbach_L4
+measurment_table1[24,3]  <- mm1_cronbach_L5
+measurment_table1[27,3] <- mm1_cronbach_PT
+measurment_table1[33,3] <- mm1_cronbach_MA
+measurment_table1[37,3] <- mm1_cronbach_RT
+measurment_table1[44,3] <- mm1_cronbach_RI
+measurment_table1[46,3] <- mm1_cronbach_PA
+measurment_table1[56,3] <- 1
+measurment_table1[57,3] <- mm1_cronbach_Neg
+
+#Col4
+measurment_table1[1,4] <- 1
+measurment_table1[2,4]  <- mm1_cr_PSQ
+measurment_table1[7,4] <- mm1_cr_SE
+measurment_table1[9,4] <- mm1_cr_L1
+measurment_table1[12,4] <- mm1_cr_L2
+measurment_table1[18,4] <-mm1_cr_L3 
+measurment_table1[21,4]  <- mm1_cr_L4
+measurment_table1[24,4] <- mm1_cr_L5  
+measurment_table1[27,4] <- mm1_cr_PT
+measurment_table1[33,4] <- mm1_cr_MA
+measurment_table1[37,4] <-mm1_cr_RT 
+measurment_table1[44,4] <- mm1_cr_RI
+measurment_table1[46,4] <- mm1_cr_PA
+measurment_table1[56,4] <- 1
+measurment_table1[57,4] <- mm1_cr_Neg
+
+
+#Col5
+measurment_table1[1,5] <- 1
+measurment_table1[2,5] <- mm1_ave_PSQ
+measurment_table1[7,5] <- mm1_ave_SE
+measurment_table1[9,5] <- mm1_ave_SE
+measurment_table1[12,5] <- mm1_ave_L2
+measurment_table1[18,5] <- mm1_ave_L3
+measurment_table1[21,5] <- mm1_ave_L4 
+measurment_table1[24,5] <- mm1_ave_L5 
+measurment_table1[27,5] <-mm1_ave_PT 
+measurment_table1[33,5] <- mm1_ave_MA
+measurment_table1[37,5] <- mm1_ave_RT
+measurment_table1[44,5] <- mm1_ave_RI
+measurment_table1[46,5] <- mm1_ave_PA
+measurment_table1[56,5] <- 1
+measurment_table1[57,5] <- mm1_ave_Neg
+
+measurment_table1[2:5] <- lapply(measurment_table1[2:5], FUN = function(y){as.numeric(y)})
+
+
+```
+
+```{r mmtab1-apa}
+apa_table(measurment_table1, caption =  "Results of Measurement assessment(Supplimental table)",font_size= 'scriptsize', longtable = T)
+```
+
+```{r ex-items, include= F}
+excluded_items <- measurment_table1[which(measurment_table1$`Factor Loading`< .40),]
+#L2_item1: Original item4
+#MEQ_F2_item4: Original item6
+#MEQ_F3_item4: Original item10
+#MEQ_F3_item6: Original item16
+#MEQ_F3_item7: Original item12
+```
+
+
+
+
+```{r renaming2, include =F}
+#This code holds the renaming code for PLS-SEM 2. Items in MEQ( item6, 10,16,12) and LEBA (item4)  are excluded due to loading bellow .40
+
+LB_2 <- LB
+
+
+
+
+#MEQ 
+# 11, 1, 18, 17, 9,15; Peak Time
+names(LB_2)[names(LB_2) == "MEQ11_rec"] <- "MEQ_F1_item1"
+names(LB_2)[names(LB_2) == "MEQ1_rec"] <- "MEQ_F1_item2"
+names(LB_2)[names(LB_2) == "MEQ18_rec"] <- "MEQ_F1_item3"
+names(LB_2)[names(LB_2) == "MEQ17_rec"] <- "MEQ_F1_item4"
+names(LB_2)[names(LB_2) == "MEQ9_rec"] <- "MEQ_F1_item5"
+names(LB_2)[names(LB_2) == "MEQ15_rec"] <- "MEQ_F1_item6"
+
+
+# 7,4,5: Morning Affect
+names(LB_2)[names(LB_2) == "MEQ7_rec"] <- "MEQ_F2_item1"
+names(LB_2)[names(LB_2) == "MEQ4_rec"] <- "MEQ_F2_item2"
+names(LB_2)[names(LB_2) == "MEQ5_rec"] <- "MEQ_F2_item3"
+
+# 19,8,2,10,14,16, 12: Retiting
+names(LB_2)[names(LB_2) == "MEQ19_rec"] <- "MEQ_F3_item1"
+names(LB_2)[names(LB_2) == "MEQ8_rec"] <- "MEQ_F3_item2"
+names(LB_2)[names(LB_2) == "MEQ2_rec"] <- "MEQ_F3_item3"
+names(LB_2)[names(LB_2) == "MEQ14_rec"] <- "MEQ_F3_item4"
+
+
+# 3,13: Rising
+names(LB_2)[names(LB_2) == "MEQ3_rec"] <- "MEQ_F4_item1"
+names(LB_2)[names(LB_2) == "MEQ13_rec"] <- "MEQ_F4_item2"
+
+
+#Positive Affects
+
+names(LB_2)[names(LB_2) == "PANAS_Interested"] <- "PA1"
+names(LB_2)[names(LB_2) == "PANAS_Excited"] <- "PA2"
+names(LB_2)[names(LB_2) == "PANAS_Strong"] <- "PA3"
+names(LB_2)[names(LB_2) == "PANAS_Enthusiatic"] <- "PA4"
+names(LB_2)[names(LB_2) == "PANAS_Proud"] <- "PA5"
+names(LB_2)[names(LB_2) == "PANAS_Alert"] <- "PA6"
+names(LB_2)[names(LB_2) == "PANAS_Inspired"] <- "PA7"
+names(LB_2)[names(LB_2) == "PANAS_Determined"] <- "PA8"
+names(LB_2)[names(LB_2) == "PANAS_Attentive"] <- "PA9"
+names(LB_2)[names(LB_2) == "PANAS_Active"] <- "PA10"
+
+#Negative Affescts
+
+
+names(LB_2)[names(LB_2) == "PANAS_Distressed"] <- "NegA1"
+names(LB_2)[names(LB_2) == "PANAS_Upset"] <- "NegA2"
+names(LB_2)[names(LB_2) == "PANAS_Guilty"] <- "NegA3"
+names(LB_2)[names(LB_2) == "PANAS_Scared"] <- "NegA4"
+names(LB_2)[names(LB_2) == "PANAS_Hostile"] <- "NegA5"
+names(LB_2)[names(LB_2) == "PANAS_Irritable"] <- "NegA6"
+names(LB_2)[names(LB_2) == "PANAS_Ashmed"] <- "NegA7"
+names(LB_2)[names(LB_2) == "PANAS_Nervous"] <- "NegA8"
+names(LB_2)[names(LB_2) == "PANAS_Jittery"] <- "NegA9"
+names(LB_2)[names(LB_2) == "PANAS_Afraid"] <- "NegA10"
+
+
+
+names(LB_2)[names(LB_2) == "rec_LEBA1"] <- "LEBA_F1_item1"
+names(LB_2)[names(LB_2) == "rec_LEBA2"] <- "LEBA_F1_item2"
+names(LB_2)[names(LB_2) == "rec_LEBA3"] <- "LEBA_F1_item3"
+
+names(LB_2)[names(LB_2) == "rec_LEBA5"] <- "LEBA_F2_item1"
+names(LB_2)[names(LB_2) == "rec_LEBA6"] <- "LEBA_F2_item2"
+names(LB_2)[names(LB_2) == "rec_LEBA7"] <- "LEBA_F2_item3"
+names(LB_2)[names(LB_2) == "rec_LEBA8"] <- "LEBA_F2_item4"
+names(LB_2)[names(LB_2) == "rec_LEBA9"] <- "LEBA_F2_item5"
+
+names(LB_2)[names(LB_2) == "rec_LEBA10"] <- "LEBA_F3_item1"
+names(LB_2)[names(LB_2) == "rec_LEBA11"] <- "LEBA_F3_item2"
+names(LB_2)[names(LB_2) == "rec_LEBA12"] <- "LEBA_F3_item3"
+
+names(LB_2)[names(LB_2) == "rec_LEBA15"] <- "LEBA_F4_item1"
+names(LB_2)[names(LB_2) == "rec_LEBA16"] <- "LEBA_F4_item2"
+names(LB_2)[names(LB_2) == "rec_LEBA18"] <- "LEBA_F4_item3"
+  
+names(LB_2)[names(LB_2) == "rec_LEBA19"] <- "LEBA_F5_item1"
+names(LB_2)[names(LB_2) == "rec_LEBA20"] <- "LEBA_F5_item2"
+names(LB_2)[names(LB_2) == "rec_LEBA22"] <- "LEBA_F5_item3"
+
+
+
+#Subjective sleep quality
+names(LB_2)[names(LB_2) == "PSQI_C1"] <- "PSQ1"
+# Sleep Latency
+names(LB_2)[names(LB_2) == "PSQI_C2"] <- "PSQ2"
+
+# Sleep Duration
+names(LB_2)[names(LB_2) == "PSQI_C3"] <- "Sleep_efficieny1"
+
+# Habitual sleep efficiency
+names(LB_2)[names(LB_2) == "PSQI_C4"] <- "Sleep_efficieny2"
+
+# sleep Disturbance
+names(LB_2)[names(LB_2) == "PSQI_C5"] <- "PSQ3"
+
+# Sleep Medication
+names(LB_2)[names(LB_2) == "PSQI_C6"] <- "PSQ4"
+
+# Daytime Dysfunction
+names(LB_2)[names(LB_2) == "PSQI_C7"] <- "PSQ5"
+
+
+```
+
+```{r pls-sem-2, include =F}
+# Round 2 PLS excluding  MEQ items 6, 10,16,12 and LEBA item4. All loading is now above .40
+
+##Measeurement Model
+measurment_model_2 <- constructs(
+  composite("Concentration", single_item("OLS_Concentration_rec")),
+  composite("PSQ", multi_items("PSQ", 1:5)),
+  composite("SE", multi_items("Sleep_efficieny", 1:2)),
+  composite("L1", multi_items("LEBA_F1_item", 1:3)),
+  composite("L2", multi_items("LEBA_F2_item", 1:5)),
+  composite("L3", multi_items("LEBA_F3_item", 1:3)),
+  composite("L4", multi_items("LEBA_F4_item", 1:3)),
+  composite("L5", multi_items("LEBA_F5_item", 1:3)),
+  
+  composite("PT", multi_items("MEQ_F1_item", 1:6)),
+composite("MA", multi_items("MEQ_F2_item", 1:3)),
+  composite("RT", multi_items("MEQ_F3_item", 1:4)),
+  composite("RI", multi_items("MEQ_F4_item", 1:2)),
+  composite("PA", multi_items("PA", 1:10)),
+  composite("Memory", single_item("OLS_Memory_rec")),
+  composite("NegA", multi_items("NegA", 1:10))
+   
+)
+#Stuctural Model
+structural_model_2 <- relationships(
+  paths(from = c("L1","L2","L3","L4","L5"), to = c("PSQ","SE", "PA", "NegA", "Memory","Concentration", "PT", "MA", "RT", "RI")) ,
+  paths(from = c( "PA","NegA", "PSQ", "SE"), to = c("Memory", "Concentration")),
+  paths(from = c("PA","NegA", "PT", "MA", "RT", "RI"), to = c("PSQ", "SE"))
+)
+
+## Estimate the model 
+model_estimation_2 <- estimate_pls(data= LB_2,
+                                      measurement_model =measurment_model_2,
+                                      structural_model = structural_model_2,
+                                      missing = mean_replacement,  
+                                      missing_value = NA)
+
+model_summary_2 <- summary(model_estimation_2)
+r2_value <- as.data.frame(model_summary_2$paths)
+r2_value <- rownames_to_column(r2_value)
+plot(model_summary_2$reliability)
+#Inspecting iteration
+model_summary_2$iterations
+
+
+#Evaluation of measurement models
+##Inspect of the indicator loadings
+loadings.2 <- as.data.frame(model_summary_2$loadings)
+loadings.2 <- rownames_to_column(loadings.2 )
+##Inspect of the indicator loadings reliability
+model_summary_2$loadings^2
+#VIF
+# min_vif <- lapply((lapply(model_summary_2$vif_antecedents, min)),min)
+
+
+## inspect Reliability & Convergent validity
+reliability.2 <- as.data.frame(model_summary_2$reliability)
+reliability.2 <- rownames_to_column(reliability.2)
+## Discriminant validity (Fornell-Larcker)
+fl_dis_val <- as.data.frame(model_summary_2$validity$fl_criteria)
+fl_dis_val <- rownames_to_column(fl_dis_val)
+fl_dis_val[2:16] <- lapply(fl_dis_val[2:16], FUN = function(y){as.numeric(y)})
+## Discriminant validity (HTMT)
+htmtdis_val <- as.data.frame(model_summary_2$validity$htmt)
+htmtdis_val <- rownames_to_column(htmtdis_val)
+htmtdis_val[2:16] <- lapply(htmtdis_val[2:16], FUN = function(y){as.numeric(y)})
+
+```
+
+
+```{r explanatory, include=F}
+
+r_square <- as.data.frame(r2_value[r2_value$rowname== "AdjR^2",])
+
+weak <- r_square %>% select_if(~any(.>=0.02 & .<0.13))
+moderate <- r_square %>% select_if(~any(.>=0.13 & .<0.26))
+substantial <- r_square %>% select_if(~any(.>=0.26))
+```
+
+
+```{r bootstrapping, include=F}
+#Bootstrapping
+# boot_model_2 <- bootstrap_model(seminr_model = model_estimation_2,  nboot = 10000,  cores = NULL,seed = 123)
+# 
+# #Store the summary of the bootstrapped model
+# bootstapring_summary_2 <- summary(boot_model_2 , alpha=0.05)
+# write_rds(bootstapring_summary_2, "bootstapring_summary_2.rds")
+bootstapring_summary_2 <- readRDS("bootstapring_summary_2.rds")
+#Inspection
+booth_paths <- bootstapring_summary_2$bootstrapped_paths
+boot_loadings_raw <- as.data.frame(bootstapring_summary_2$bootstrapped_loadings)
+boot_loadings <- rownames_to_column(boot_loadings_raw)
+boot_loadings[c('rowname', 'Factor')] <- stringr::str_split_fixed(boot_loadings$rowname, '-> ', 2)
+# inspect bootstrapped HTMT
+boot_htmt <- bootstapring_summary_2$bootstrapped_HTMT
+##Uppoer level of boothstrapped HTMT should be lower than .80/.90
+```
+
+```{r measurment-model-2, include=F}
+#This block contains codes for the building blocks of measurement model table 1
+
+#loadings
+mm2_factor_loading_PSQ_item1 <- loadings.2[loadings.2$rowname == "PSQ1", "PSQ"]
+mm2_factor_loading_PSQ_item2 <- loadings.2[loadings.2$rowname == "PSQ2", "PSQ"]
+mm2_factor_loading_PSQ_item3 <- loadings.2[loadings.2$rowname == "PSQ3", "PSQ"]
+mm2_factor_loading_PSQ_item4 <- loadings.2[loadings.2$rowname == "PSQ4", "PSQ"]
+mm2_factor_loading_PSQ_item5 <- loadings.2[loadings.2$rowname == "PSQ5", "PSQ"]
+mm2_factor_loading_Sleep_Eff_item1 <- loadings.2[loadings.2$rowname == "Sleep_efficieny1", "SE"]
+mm2_factor_loading_Sleep_Eff_item2 <- loadings.2[loadings.2$rowname == "Sleep_efficieny2", "SE"]
+mm2_factor_loading_L1_item1 <- loadings.2[loadings.2$rowname == "LEBA_F1_item1", "L1"]
+mm2_factor_loading_L1_item2 <- loadings.2[loadings.2$rowname == "LEBA_F1_item2", "L1"]
+mm2_factor_loading_L1_item3 <- loadings.2[loadings.2$rowname == "LEBA_F1_item3", "L1"]
+mm2_factor_loading_L2_item1 <- loadings.2[loadings.2$rowname == "LEBA_F2_item1", "L2"]
+mm2_factor_loading_L2_item2 <- loadings.2[loadings.2$rowname == "LEBA_F2_item2", "L2"]
+mm2_factor_loading_L2_item3 <- loadings.2[loadings.2$rowname == "LEBA_F2_item3", "L2"]
+mm2_factor_loading_L2_item4 <- loadings.2[loadings.2$rowname == "LEBA_F2_item4", "L2"]
+mm2_factor_loading_L2_item5 <- loadings.2[loadings.2$rowname == "LEBA_F2_item5", "L2"]
+mm2_factor_loading_L2_item6 <- loadings.2[loadings.2$rowname == "LEBA_F2_item6", "L2"]
+mm2_factor_loading_L3_item1 <- loadings.2[loadings.2$rowname == "LEBA_F3_item1", "L3"]
+mm2_factor_loading_L3_item2 <- loadings.2[loadings.2$rowname == "LEBA_F3_item2", "L3"]
+mm2_factor_loading_L3_item3 <- loadings.2[loadings.2$rowname == "LEBA_F3_item3", "L3"]
+mm2_factor_loading_L4_item1 <- loadings.2[loadings.2$rowname == "LEBA_F4_item1", "L4"]
+mm2_factor_loading_L4_item2 <- loadings.2[loadings.2$rowname == "LEBA_F4_item2", "L4"]
+mm2_factor_loading_L4_item3 <- loadings.2[loadings.2$rowname == "LEBA_F4_item3", "L4"]
+mm2_factor_loading_L5_item1 <- loadings.2[loadings.2$rowname == "LEBA_F5_item1", "L5"]
+mm2_factor_loading_L5_item2 <- loadings.2[loadings.2$rowname == "LEBA_F5_item2", "L5"]
+mm2_factor_loading_L5_item3 <- loadings.2[loadings.2$rowname == "LEBA_F5_item3", "L5"]
+mm2_factor_loading_MEQ_F1_item1 <- loadings.2[loadings.2$rowname == "MEQ_F1_item1", "PT"]
+mm2_factor_loading_MEQ_F1_item2 <- loadings.2[loadings.2$rowname == "MEQ_F1_item2", "PT"]
+mm2_factor_loading_MEQ_F1_item3 <- loadings.2[loadings.2$rowname == "MEQ_F1_item3", "PT"]
+mm2_factor_loading_MEQ_F1_item4 <- loadings.2[loadings.2$rowname == "MEQ_F1_item4", "PT"]
+mm2_factor_loading_MEQ_F1_item5 <- loadings.2[loadings.2$rowname == "MEQ_F1_item5", "PT"]
+mm2_factor_loading_MEQ_F1_item6 <- loadings.2[loadings.2$rowname == "MEQ_F1_item6", "PT"]
+mm2_factor_loading_MEQ_F2_item1 <- loadings.2[loadings.2$rowname == "MEQ_F2_item1", "MA"]
+mm2_factor_loading_MEQ_F2_item2 <- loadings.2[loadings.2$rowname == "MEQ_F2_item2", "MA"]
+mm2_factor_loading_MEQ_F2_item3 <- loadings.2[loadings.2$rowname == "MEQ_F2_item3", "MA"]
+mm2_factor_loading_MEQ_F2_item4 <- loadings.2[loadings.2$rowname == "MEQ_F2_item4", "MA"]
+mm2_factor_loading_MEQ_F3_item1 <- loadings.2[loadings.2$rowname == "MEQ_F3_item1", "RT"]
+mm2_factor_loading_MEQ_F3_item2 <- loadings.2[loadings.2$rowname == "MEQ_F3_item2", "RT"]
+mm2_factor_loading_MEQ_F3_item3 <- loadings.2[loadings.2$rowname == "MEQ_F3_item3", "RT"]
+mm2_factor_loading_MEQ_F3_item4 <- loadings.2[loadings.2$rowname == "MEQ_F3_item4", "RT"]
+mm2_factor_loading_MEQ_F3_item5 <- loadings.2[loadings.2$rowname == "MEQ_F3_item5", "RT"]
+mm2_factor_loading_MEQ_F3_item6 <- loadings.2[loadings.2$rowname == "MEQ_F3_item6", "RT"]
+mm2_factor_loading_MEQ_F3_item7 <- loadings.2[loadings.2$rowname == "MEQ_F3_item7", "RT"]
+mm2_factor_loading_MEQ_F4_item1 <- loadings.2[loadings.2$rowname == "MEQ_F4_item1", "RI"]
+mm2_factor_loading_MEQ_F4_item2 <- loadings.2[loadings.2$rowname == "MEQ_F4_item2", "RI"]
+mm2_factor_loading_PA_item1 <- loadings.2[loadings.2$rowname == "PA1", "PA"]
+mm2_factor_loading_PA_item2 <- loadings.2[loadings.2$rowname == "PA2", "PA"]
+mm2_factor_loading_PA_item3 <- loadings.2[loadings.2$rowname == "PA3", "PA"]
+mm2_factor_loading_PA_item4 <- loadings.2[loadings.2$rowname == "PA4", "PA"]
+mm2_factor_loading_PA_item5 <- loadings.2[loadings.2$rowname == "PA5", "PA"]
+mm2_factor_loading_PA_item6 <- loadings.2[loadings.2$rowname == "PA6", "PA"]
+mm2_factor_loading_PA_item7 <- loadings.2[loadings.2$rowname == "PA7", "PA"]
+mm2_factor_loading_PA_item8 <- loadings.2[loadings.2$rowname == "PA8", "PA"]
+mm2_factor_loading_PA_item9 <- loadings.2[loadings.2$rowname == "PA9", "PA"]
+mm2_factor_loading_PA_item10 <- loadings.2[loadings.2$rowname == "PA10", "PA"]
+mm2_factor_loading_Neg_item1 <- loadings.2[loadings.2$rowname == "NegA1", "NegA"]
+mm2_factor_loading_Neg_item2 <- loadings.2[loadings.2$rowname == "NegA2", "NegA"]
+mm2_factor_loading_Neg_item3 <- loadings.2[loadings.2$rowname == "NegA3", "NegA"]
+mm2_factor_loading_Neg_item4 <- loadings.2[loadings.2$rowname == "NegA4", "NegA"]
+mm2_factor_loading_Neg_item5 <- loadings.2[loadings.2$rowname == "NegA5", "NegA"]
+mm2_factor_loading_Neg_item6 <- loadings.2[loadings.2$rowname == "NegA6", "NegA"]
+mm2_factor_loading_Neg_item7 <- loadings.2[loadings.2$rowname == "NegA7", "NegA"]
+mm2_factor_loading_Neg_item8 <- loadings.2[loadings.2$rowname == "NegA8", "NegA"]
+mm2_factor_loading_Neg_item9 <- loadings.2[loadings.2$rowname == "NegA9", "NegA"]
+mm2_factor_loading_Neg_item10 <- loadings.2[loadings.2$rowname == "NegA10", "NegA"]
+
+#Cronbach alpha
+mm2_cronbach_PSQ <- reliability.2[reliability.2$rowname== "PSQ", "alpha"]
+mm2_cronbach_SE <- reliability.2[reliability.2$rowname== "SE", "alpha"]
+mm2_cronbach_L1 <- reliability.2[reliability.2$rowname== "L1", "alpha"]
+mm2_cronbach_L2<- reliability.2[reliability.2$rowname== "L2", "alpha"]
+mm2_cronbach_L3<- reliability.2[reliability.2$rowname== "L3", "alpha"]
+mm2_cronbach_L4<- reliability.2[reliability.2$rowname== "L4", "alpha"]
+mm2_cronbach_L5<- reliability.2[reliability.2$rowname== "L5", "alpha"]
+mm2_cronbach_PT<- reliability.2[reliability.2$rowname== "PT", "alpha"]
+mm2_cronbach_MA<- reliability.2[reliability.2$rowname== "MA", "alpha"]
+mm2_cronbach_RT<- reliability.2[reliability.2$rowname== "RT", "alpha"]
+mm2_cronbach_RI<- reliability.2[reliability.2$rowname== "RI", "alpha"]
+mm2_cronbach_PA<- reliability.2[reliability.2$rowname== "PA", "alpha"]
+mm2_cronbach_Neg<- reliability.2[reliability.2$rowname== "NegA", "alpha"]
+
+
+#CR
+mm2_cr_PSQ <- reliability.2[reliability.2$rowname== "PSQ", "rhoC"]
+mm2_cr_SE <- reliability.2[reliability.2$rowname== "SE", "rhoC"]
+mm2_cr_L1 <- reliability.2[reliability.2$rowname== "L1", "rhoC"]
+mm2_cr_L2<- reliability.2[reliability.2$rowname== "L2", "rhoC"]
+mm2_cr_L3<- reliability.2[reliability.2$rowname== "L3", "rhoC"]
+mm2_cr_L4<- reliability.2[reliability.2$rowname== "L4", "rhoC"]
+mm2_cr_L5<- reliability.2[reliability.2$rowname== "L5", "rhoC"]
+mm2_cr_PT<- reliability.2[reliability.2$rowname== "PT", "rhoC"]
+mm2_cr_MA<- reliability.2[reliability.2$rowname== "MA", "rhoC"]
+mm2_cr_RT<- reliability.2[reliability.2$rowname== "RT", "rhoC"]
+mm2_cr_RI<- reliability.2[reliability.2$rowname== "RI", "rhoC"]
+mm2_cr_PA<- reliability.2[reliability.2$rowname== "PA", "rhoC"]
+mm2_cr_Neg<- reliability.2[reliability.2$rowname== "NegA", "rhoC"]
+
+
+
+#AVE
+mm2_ave_PSQ <- reliability.2[reliability.2$rowname== "PSQ", "AVE"]
+mm2_ave_SE <- reliability.2[reliability.2$rowname== "SE", "AVE"]
+mm2_ave_L1 <- reliability.2[reliability.2$rowname== "L1", "AVE"]
+mm2_ave_L2<- reliability.2[reliability.2$rowname== "L2", "AVE"]
+mm2_ave_L3<- reliability.2[reliability.2$rowname== "L3", "AVE"]
+mm2_ave_L4<- reliability.2[reliability.2$rowname== "L4", "AVE"]
+mm2_ave_L5<- reliability.2[reliability.2$rowname== "L5", "AVE"]
+mm2_ave_PT<- reliability.2[reliability.2$rowname== "PT", "AVE"]
+mm2_ave_MA<- reliability.2[reliability.2$rowname== "MA", "AVE"]
+mm2_ave_RT<- reliability.2[reliability.2$rowname== "RT", "AVE"]
+mm2_ave_RI<- reliability.2[reliability.2$rowname== "RI", "AVE"]
+mm2_ave_PA<- reliability.2[reliability.2$rowname== "PA", "AVE"]
+mm2_ave_Neg<- reliability.2[reliability.2$rowname== "NegA", "AVE"]
+
+```
+
+```{r measurment-model-tb2,include=F}
+measurment_table2 <- as.data.frame(matrix("",nrow=61,ncol=5))
+measurment_table_names <- c("Constructs","Factor Loading","Cronbach's alpha","CR","AVE")
+colnames(measurment_table2) <- (measurment_table_names)
+
+measurment_table2$Constructs <- loadings.2$rowname
+
+
+#Col2
+measurment_table2[1,2] <- 1
+measurment_table2[2,2] <- mm2_factor_loading_PSQ_item1
+measurment_table2[3,2] <- mm2_factor_loading_PSQ_item2
+measurment_table2[4,2] <-mm2_factor_loading_PSQ_item3
+measurment_table2[5,2] <- mm2_factor_loading_PSQ_item4
+measurment_table2[6,2] <- mm2_factor_loading_PSQ_item5
+
+measurment_table2[7,2] <- mm2_factor_loading_Sleep_Eff_item1
+measurment_table2[8,2] <- mm2_factor_loading_Sleep_Eff_item2
+
+measurment_table2[9,2] <- mm2_factor_loading_L1_item1
+measurment_table2[10,2] <- mm2_factor_loading_L1_item2
+measurment_table2[11,2] <- mm2_factor_loading_L1_item3
+
+measurment_table2[12,2] <- mm2_factor_loading_L2_item1
+measurment_table2[13,2] <- mm2_factor_loading_L2_item2
+measurment_table2[14,2] <- mm2_factor_loading_L2_item3
+measurment_table2[15,2] <- mm2_factor_loading_L2_item4
+measurment_table2[16,2] <- mm2_factor_loading_L2_item5
+
+measurment_table2[17,2] <- mm2_factor_loading_L3_item1
+measurment_table2[18,2]<- mm2_factor_loading_L3_item2
+measurment_table2[19,2]<- mm2_factor_loading_L3_item3
+
+measurment_table2[20,2]<- mm2_factor_loading_L4_item1
+measurment_table2[21,2]<- mm2_factor_loading_L4_item2
+measurment_table2[22,2]<- mm2_factor_loading_L4_item3
+
+measurment_table2[23,2]<- mm2_factor_loading_L5_item1
+measurment_table2[24,2]<- mm2_factor_loading_L5_item2
+measurment_table2[25,2]<- mm2_factor_loading_L5_item3
+
+measurment_table2[26,2] <-mm2_factor_loading_MEQ_F1_item1
+measurment_table2[27,2]<- mm2_factor_loading_MEQ_F1_item2
+measurment_table2[28,2]<- mm2_factor_loading_MEQ_F1_item3
+measurment_table2[29,2]<- mm2_factor_loading_MEQ_F1_item4
+measurment_table2[30,2]<- mm2_factor_loading_MEQ_F1_item5
+measurment_table2[31,2]<- mm2_factor_loading_MEQ_F1_item6
+
+measurment_table2[32,2]<- mm2_factor_loading_MEQ_F2_item1
+measurment_table2[33,2]<- mm2_factor_loading_MEQ_F2_item2
+measurment_table2[34,2]<- mm2_factor_loading_MEQ_F2_item3
+
+measurment_table2[35,2]<- mm2_factor_loading_MEQ_F3_item1
+measurment_table2[36,2]<- mm2_factor_loading_MEQ_F3_item2
+measurment_table2[37,2]<- mm2_factor_loading_MEQ_F3_item3
+measurment_table2[38,2]<- mm2_factor_loading_MEQ_F3_item4
+
+measurment_table2[39,2]<- mm2_factor_loading_MEQ_F4_item1
+measurment_table2[40,2]<- mm2_factor_loading_MEQ_F4_item2
+
+measurment_table2[41,2] <- mm2_factor_loading_PA_item1 
+measurment_table2[42,2]<- mm2_factor_loading_PA_item2
+measurment_table2[43,2]<- mm2_factor_loading_PA_item3
+measurment_table2[44,2]<- mm2_factor_loading_PA_item4
+measurment_table2[45,2]<- mm2_factor_loading_PA_item5
+measurment_table2[46,2]<- mm2_factor_loading_PA_item6
+measurment_table2[47,2]<- mm2_factor_loading_PA_item7
+measurment_table2[48,2]<- mm2_factor_loading_PA_item8
+measurment_table2[49,2]<- mm2_factor_loading_PA_item9
+measurment_table2[50,2]<- mm2_factor_loading_PA_item10
+
+measurment_table2[51,2] <- 1
+
+measurment_table2[52,2] <- mm2_factor_loading_Neg_item1
+measurment_table2[53,2]<- mm2_factor_loading_Neg_item2
+measurment_table2[54,2]<- mm2_factor_loading_Neg_item3
+measurment_table2[55,2]<- mm2_factor_loading_Neg_item4
+measurment_table2[56,2]<- mm2_factor_loading_Neg_item5
+measurment_table2[57,2]<- mm2_factor_loading_Neg_item6
+measurment_table2[58,2]<- mm2_factor_loading_Neg_item7
+measurment_table2[59,2]<- mm2_factor_loading_Neg_item8
+measurment_table2[60,2]<- mm2_factor_loading_Neg_item9
+measurment_table2[61,2]<- mm2_factor_loading_Neg_item10
+
+#Col3
+measurment_table2[1,3] <- 1
+measurment_table2[2,3] <- mm2_cronbach_PSQ
+measurment_table2[7,3] <- mm2_cronbach_SE
+measurment_table2[9,3] <- mm2_cronbach_L1
+measurment_table2[12,3] <- mm2_cronbach_L2
+measurment_table2[17,3] <- mm2_cronbach_L3
+measurment_table2[20,3]  <- mm2_cronbach_L4
+measurment_table2[23,3]  <- mm2_cronbach_L5
+measurment_table2[26,3] <- mm2_cronbach_PT
+measurment_table2[32,3] <- mm2_cronbach_MA
+measurment_table2[35,3] <- mm2_cronbach_RT
+measurment_table2[39,3] <- mm2_cronbach_RI
+measurment_table2[41,3] <- mm2_cronbach_PA
+measurment_table2[51,3] <- 1
+measurment_table2[52,3] <- mm2_cronbach_Neg
+
+#Col4
+measurment_table2[1,4] <- 1
+measurment_table2[2,4]  <- mm2_cr_PSQ
+measurment_table2[7,4] <- mm2_cr_SE
+measurment_table2[9,4] <- mm2_cr_L1
+measurment_table2[12,4] <- mm2_cr_L2
+measurment_table2[17,4] <-mm2_cr_L3 
+measurment_table2[20,4]  <- mm2_cr_L4
+measurment_table2[23,4] <- mm2_cr_L5  
+measurment_table2[26,4] <- mm2_cr_PT
+measurment_table2[32,4] <- mm2_cr_MA
+measurment_table2[35,4] <-mm2_cr_RT 
+measurment_table2[39,4] <- mm2_cr_RI
+measurment_table2[41,4] <- mm2_cr_PA
+measurment_table2[51,4] <- 1
+measurment_table2[52,4] <- mm2_cr_Neg
+
+
+#Col5
+measurment_table2[1,5] <- 1
+measurment_table2[2,5] <- mm2_ave_PSQ
+measurment_table2[7,5] <- mm2_ave_SE
+measurment_table2[9,5] <- mm2_ave_SE
+measurment_table2[12,5] <- mm2_ave_L2
+measurment_table2[17,5] <- mm2_ave_L3
+measurment_table2[20,5] <- mm2_ave_L4 
+measurment_table2[23,5] <- mm2_ave_L5 
+measurment_table2[26,5] <-mm2_ave_PT 
+measurment_table2[32,5] <- mm2_ave_MA
+measurment_table2[35,5] <- mm2_ave_RT
+measurment_table2[39,5] <- mm2_ave_RI
+measurment_table2[41,5] <- mm2_ave_PA
+measurment_table2[51,5] <- 1
+measurment_table2[52,5] <- mm2_ave_Neg
+
+measurment_table2[2:5] <- lapply(measurment_table2[2:5], FUN = function(y){as.numeric(y)})
+```
+
+
+```{r mmtab2-apa}
+apa_table(measurment_table2, caption =  "Results of Measurement assessment", note = "All factors loadings are significant(p<0.05)",font_size= 'scriptsize', longtable=T)
+```
+
+
+```{r desval-fl}
+apa_table(fl_dis_val, caption =  "Discriminant validity assessment using the Fornell-Larker Criterion", font_size= 'scriptsize', landscape = T)
+```
+
+```{r desval-htmt}
+apa_table(htmtdis_val, caption =  "Discriminant validity assessment using the HTMT", font_size= 'scriptsize', landscape = T)
+```
+
+```{r str-mod,include=F}
+#Evaluation of structural model
+
+# Colinearity (should be bellow 5)
+model_summary_2$vif_antecedents
+
+#Strength of the structural paths
+all_path <- bootstapring_summary_2$bootstrapped_paths
+significant_paths <- as.data.frame(all_path) %>% 
+  filter(abs(`T Stat.`)>1.960)# p = 0.05
+significant_paths_tab <- rownames_to_column(significant_paths)
+significant_paths_tab[2:7] <- lapply(significant_paths_tab[2:7], FUN = function(y){as.numeric(y)})
+
+#Total effects
+all_total_effect <- bootstapring_summary_2$bootstrapped_total_paths
+significant_total_effect <- as.data.frame(all_total_effect) %>% 
+  filter(abs(`T Stat.`)>1.960)# p = 0.05
+
+significant_total_effect_tab <- rownames_to_column(significant_total_effect)
+significant_total_effect_tab[2:7] <- lapply(significant_total_effect_tab[2:7], FUN = function(y){as.numeric(y)})
+
+##Explanatory power: r^2
+model_summary_2$paths
+model_summary_2$fSquare
+
+```
+
+```{r str-tab}
+apa_table(significant_paths_tab, caption =  "Structural model assessment",note ="Only significant paths are reported", font_size= 'scriptsize', longtable=T)
+```
+
+```{r allpaths-tab}
+apa_table(all_path, caption =  "SAtab2-All paths", font_size= 'scriptsize', longtable=T)
+```
+
+
+```{r totaleffect-tab}
+apa_table(significant_total_effect_tab, caption =  "Significant Total effects",note ="Only significant effects are reported", font_size= 'scriptsize', longtable=T)
+```
+
+```{r prediction, include=F}
+#Inspecting prediction
+predict_model <- predict_pls(  model = model_estimation_2,  technique = predict_DA,  noFolds = 10,  reps = 10) 
+# Summarize the prediction results 
+prediction_summary <- summary(predict_model)
+table(prediction_summary$PLS_out_of_sample[1,]<prediction_summary$LM_out_of_sample[1,])
+
+table(prediction_summary$PLS_out_of_sample[2,]<prediction_summary$LM_out_of_sample[2,])
+#High predicting power
+
+
+
+
+SSE_psq <- sum((prediction_summary$prediction_error$PSQ1)^2)+sum((prediction_summary$prediction_error$PSQ2)^2)+sum((prediction_summary$prediction_error$PSQ3)^2)+sum((prediction_summary$prediction_error$PSQ4)^2)+sum((prediction_summary$prediction_error$PSQ5)^2)
+
+SSO_psq <- 301*5
+
+q2_psq <- 1-SSE_psq/SSO_psq
+
+
+
+
+SSE_se <- sum((prediction_summary$prediction_error$Sleep_efficieny1)^2)+sum((prediction_summary$prediction_error$Sleep_efficieny2)^2)
+
+SSO_se<- 301*2
+
+q2_se <- 1-SSE_se/SSO_se
+
+
+
+SSE_PA <- sum((prediction_summary$prediction_error$PA1)^2)+sum((prediction_summary$prediction_error$PA2)^2)+sum((prediction_summary$prediction_error$PA3)^2)+sum((prediction_summary$prediction_error$PA4)^2)+sum((prediction_summary$prediction_error$PA5)^2)+sum((prediction_summary$prediction_error$PA6)^2)+sum((prediction_summary$prediction_error$P7)^2)+sum((prediction_summary$prediction_error$PA8)^2)+sum((prediction_summary$prediction_error$PA9)^2)+sum((prediction_summary$prediction_error$PA10)^2)
+
+SSO_PA<- 301*10
+
+q2_PA <- 1-SSE_PA/SSO_PA
+
+
+SSE_NegA <- sum((prediction_summary$prediction_error$NegA1)^2)+sum((prediction_summary$prediction_error$NegA2)^2)+sum((prediction_summary$prediction_error$NegA3)^2)+sum((prediction_summary$prediction_error$NegA4)^2)+sum((prediction_summary$prediction_error$NegA5)^2)+sum((prediction_summary$prediction_error$NegA6)^2)+sum((prediction_summary$prediction_error$P7)^2)+sum((prediction_summary$prediction_error$NegA8)^2)+sum((prediction_summary$prediction_error$NegA9)^2)+sum((prediction_summary$prediction_error$NegA10)^2)
+
+SSO_NegA<- 301*10
+
+q2_NegA <- 1-SSE_NegA/SSO_NegA
+
+
+
+SSE_RI <- sum((prediction_summary$prediction_error$MEQ_F4_item1)^2)+ sum((prediction_summary$prediction_error$MEQ_F4_item2)^2)
+
+SSO_RI <- 301*2
+
+q2_RI <- 1-SSE_RI/SSO_RI
+
+
+SSE_PT <- sum((prediction_summary$prediction_error$MEQ_F1_item1)^2)+ sum((prediction_summary$prediction_error$MEQ_F1_item2)^2)+ sum((prediction_summary$prediction_error$MEQ_F1_item3)^2)+ sum((prediction_summary$prediction_error$MEQ_F1_item4)^2)+ sum((prediction_summary$prediction_error$MEQ_F1_item5)^2)+ sum((prediction_summary$prediction_error$MEQ_F1_item6)^2)
+
+SSO_PT <- 301*6
+q2_PT <- 1-SSE_PT/SSO_PT
+
+
+
+
+SSE_RT <- sum((prediction_summary$prediction_error$MEQ_F3_item1)^2)+ sum((prediction_summary$prediction_error$MEQ_F3_item2)^2)+ sum((prediction_summary$prediction_error$MEQ_F3_item3)^2)+ sum((prediction_summary$prediction_error$MEQ_F3_item4)^2)
+
+SSO_RT <- 301*4
+q2_RT <- SSE_RT/SSO_RT
+
+
+
+
+
+
+SSE_MA <- sum((prediction_summary$prediction_error$MEQ_F2_item1)^2)+ sum((prediction_summary$prediction_error$MEQ_F2_item2)^2)+ sum((prediction_summary$prediction_error$MEQ_F2_item3)^2)
+
+SSO_MA <- 301*3
+q2_MA <- 1-SSE_MA/SSO_MA
+
+
+
+SSE_memory <- sum((prediction_summary$prediction_error$OLS_Memory_rec)^2)
+SSO_memory <- 301*1
+q2_memory <- 1-SSE_memory/SSO_memory
+
+
+
+SSE_concentration <- sum((prediction_summary$prediction_error$OLS_Concentration_rec)^2)
+SSO_concentration <- 301*1
+q2_concentration <- 1-SSE_concentration/SSO_concentration
+```
+
+
+
+## Measurement Model
+We excluded one items from LEBA (item04) and four items from MEQ(items 06, 10,16,12) due to weak factor loadings (<0.40) (SA1). All renaming factor loadings were significant. The results of the measurement model assessment are shown in Table \@ref(tab:mmtab2-apa). Sleep Efficiency construct exhibited poor reliability in terms of coefficient Cronbach's alpha coefficient  ($\alpha$=.`r apa(reliability.2[reliability.2$rowname == "SE", "alpha"],2,T)`) but had a satisfactory construct reliability (CR=`r apa(reliability.2[reliability.2$rowname == "SE", "rhoC"],2,T)`).  All other constructs exhibited acceptable to satisfactory internal consistency in terms of Cronbach's $\alpha$ coefficient [0.51-0.94] and construct reliability[0.72-0.96]. In terms of convergent validity, AVE for all constructs were higher than .50 except LEBA factor 2, negative affect, PSQ, PT and RI. However all constructs construct validity were higher than .60 and AVEs were less than their respective construct reliability indicating sufficient reliability and convergent validity. To establish the discriminant validity we summarized the square root of each constructs' AVE  and compared them with the its correlation with other construct in table \@ref(tab:desval-fl). All constructs' square root of AVE values were greater than their inter construct correlation indicating satisfactory discriminant validity. Table \@ref(tab:desval-htmt) summarises the HTMT values and also indicated satisfactory discriminant validity (HTMT<.80).
+
+## Structural Model
+VIF for all constructs were bellow 3 indicating no possible collinearity problem. \@ref(tab:totaleffect) reports the significant  (T-value >1.906, p<0.05) path coefficients  and total effects observed in our model. 
+
+### Total effects of light exposure related behavior
+We observed a positive significant total effect of LEBA F1 on perceived sleep quality (PSQ) ($\beta$= `r apa(significant_total_effect_tab[1,2],2,T)`) and negative effect on MA ($\beta$= `r apa(significant_total_effect_tab[2,2],2,T)`). There are significant positive total effect of LEBA F2 on PA ($\beta$= `r apa(significant_total_effect_tab[3,2],2,T)`), PT ($\beta$= `r apa(significant_total_effect_tab[4,2],2,T)`), RT ($\beta$= `r apa(significant_total_effect_tab[5,2],2,T)`), RI ($\beta$= `r apa(significant_total_effect_tab[6,2],2,T)`). LEBA F3 had significant positive total effect on negative affect ($\beta$= `r apa(significant_total_effect_tab[7,2],2,T)`), PSQ ($\beta$= `r apa(significant_total_effect_tab[8,2],2,T)`). LEBA F3 also exhibited significant positive effect on trouble in memory ($\beta$= `r apa(significant_total_effect_tab[13,2],2,T)`) and concentration ($\beta$= `r apa(significant_total_effect_tab[14,2],2,T)`). LEBA F3 also exhibited negative total effect all four chronotype factors (PT, MA, RI, RI). LEBA F5 showed significant total effect on PA ($\beta$= `r apa(significant_total_effect_tab[15,2],2,T)`) and PSQ ($\beta$= `r apa(significant_total_effect_tab[16,2],2,T)`). Our model did not yield any significant total effect of LEBA factor 4 on sleep quality, chronotype, mood and trouble in memory and concentration.
+
+### Total effects of mood, chronotype and sleep quality 
+
+Our model indicated a significant negative total effect of positive affect on trouble in concentration ($\beta$= `r apa(significant_total_effect_tab[17,2],2,T)`). Negative affect had a significant positive total effect on PSQ ($\beta$= `r apa(significant_total_effect_tab[20,2],2,T)`), trouble in memory ($\beta$= `r apa(significant_total_effect_tab[21,2],2,T)`) and concentration ($\beta$= `r apa(significant_total_effect_tab[22,2],2,T)`). Both PSQ and MA also showed significant positive total effects on trouble in memory (PSQ:$\beta$= `r apa(significant_total_effect_tab[23,2],2,T)`; MA: $\beta$= `r apa(significant_total_effect_tab[26,2],2,T)`)) and concentration (PSQ:$\beta$= `r apa(significant_total_effect_tab[24,2],2,T)`; MA:$\beta$= `r apa(significant_total_effect_tab[27,2],2,T)`). Figure \@ref(fig:fig3) depicts significant path coefficents.
+
+```{r fig3, fig.align= 'center', fig.cap="Analyses Steps",  warning=FALSE,  out.height='100%', out.width='100%'}
+
+knitr::include_graphics('Figures/PLS_structural_final.png', dpi =300)
+
+```
+
+
+
+### Explanatory and predictive Power of the fitted model
+
+Our fitted model exhibited substantial explanatory power for PSQ (`r apa(r2_value[r2_value$rowname == "AdjR^2", "PSQ"]*100,2,T)`%) and trouble in concentration (`r apa(r2_value[r2_value$rowname == "AdjR^2", "Concentration"]*100,2,T)`% ). Moderate explanatory power was observed for PA (`r apa(r2_value[r2_value$rowname == "AdjR^2", "PA"]*100,2,T)`%) and Memory (`r apa(r2_value[r2_value$rowname == "AdjR^2", "Memory"]*100,2,T)`%). For the two factors of chronotype we observed weak but adequate explanatory power for PT (`r apa(r2_value[r2_value$rowname == "AdjR^2", "PT"]*100,2,T)`%) and RT (`r apa(r2_value[r2_value$rowname == "AdjR^2", "RT"]*100,2,T)`%). MA, RI, SE and negative affect did not had adequate explanatory power. The $Q^2$ values of the respective constructs indicated good predictive relevance ($Q^2$>0) for all constructs except positive and negative affect ($Q^2$<0) and RI ($Q^2$close to 0). $PLS_{predict}$ function indicated our model had medium predictive power with 61.36% of the indicators having RMSE value lower than the LM benchmark.
+
+
+
+
+# Discussion
+
+\newpage
+
+# References
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs custom-style="Bibliography"}
+:::
+
+```{=tex}
+\endgroup
+```
