@@ -492,7 +492,7 @@ LEBATable2%>%
   ) %>% 
   #create groups of columns
   gt::tab_spanner(
-    label = "Items",
+    label = "Item",
     columns = Items:Stem
   ) %>%
   gt::tab_spanner(
