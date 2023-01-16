@@ -19,13 +19,13 @@ This repository contains:
 - **bootstraping_summary_2.rds**: Bootstrapped CI data.
 - **paper_study2.Rmd**: R Markdown file containing all codes and text body for the manuscript
 - **reference.bib**: Contains all references of the packages used in the manuscript.
-- **manuscript.docx**: `docx` of the manuscript rendered using `paper_study2.Rmd`.
--**renv.lock**: `renv` lockfile data
+- **manuscript.docx**: `.docx` of the manuscript rendered using `paper_study2.Rmd`.
+- **renv.lock**: `renv` lockfile data
 # Workflow:
 
 - Open **Study2.Rproj** using RStudio.
 
-- In the Rstudio console open **paper_study2.Rmd**. And click on `knit`. A `docx` file will be produced containing all results.
+- In the Rstudio console open **paper_study2.Rmd**. And click on `knit`. A `.docx` file will be produced containing all results.
 
 
 
