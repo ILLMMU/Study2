@@ -1,11 +1,11 @@
 ---
-title             : "Light exposure related behaviors influences chronotype, sleep quality and trouble in memory and concentration: a partial least squares-path modeling Analysis"
-shorttitle        : "Online"
+title             : "Light exposure behaviors predict emotion, cognition and sleep quality"
+shorttitle        : "Light exposure behaviors"
 
 author: 
   - name          : "Mushfiqul Anwar Siraji"
     affiliation   : "1"
-    corresponding : no    # Define only one corresponding author
+    corresponding : no    
     address       : "Monash University"
     email         : "mushfiqul.anwarsiraji@monash.pdf"
     role:         
@@ -14,7 +14,7 @@ author:
       - Writing - Review & Editing
   - name          : "Vineetha Kalavally"
     affiliation   : "2"
-    corresponding : no   # Define only one corresponding author
+    corresponding : no   
     address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
     email         : " vineetha@monash.edu"
     role:
@@ -22,7 +22,7 @@ author:
       - Writing - Review & Editing
   - name           : "Shamsul Haque"
     affiliation   : "1"
-    corresponding : yes   # Define only one corresponding author
+    corresponding : yes   
     address       : "Monash University Malaysia,Jalan Lagoon Selatan, 47500 Bandar Sunway,Selangor Darul Ehsan, Malaysia."
     email         : " shamsul@monash.edu"
     role:
@@ -42,23 +42,10 @@ authornote: |
   Department of Psychology, Jeffrey Cheah School of Medicine and Health Sciences, Monash University Malaysia.
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+ The light effect on emotion, cognition and sleep is well established, but a little research has investigated if different light exposure-related behaviors, such as time spent outdoor, use of electric light during daytime, and use of smart gadgets before sleeping, influence those variables. Three-hundred-and-one Malaysian adults (MeanAge±SD=28±9) completed the Light Exposure Behavior Assessment (LEBA) tool that measured five types of light exposure behaviors. They also completed the Morningness-Eveningness Questionnaire, Positive and Negative Affect Schedule, Pittsburgh Sleep Quality Index, and single items assessing trouble in memory and concentration. A partial least square structural equation model, showing satisfactory predictive power (61.36%), revealed that increased use of wearable blue filters indoors and outdoors decreased the morning affect (Direct effect, DE=-0.16) and sleep quality (Total effect, TE=0.11). Increased time spending outdoors predicted positive affect (DE=0.32) and early chronotype (DE: RI=0.14, PT=0.15, RT=0.15). Increased use of smart gadgets before sleep predicted late chronotype (DE: RT=-0.26; RI=-0.23; PT=-0.24; MA=-0.13), increased negative affect, reduced sleep quality (DE=0.13) and increased trouble in memory and concentration (TE=0.20 & 0.23, respectively). Increased use of electric light in the morning and daytime predicted positive affect (DE=0.16) and sleep quality (DE=-0.16). Collectively, these results provide valuable insights into developing a healthy light diet to promote health and wellness. 
   
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
   
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-  <!-- https://tinyurl.com/ybremelq -->
-  
-keywords          : "keywords"
+keywords          : "light exposure; light-related behaviors; non-visual effects of light; light diet; PLS-SEM"
 wordcount         : "X"
 
 bibliography      : ["references.bib"]
@@ -80,6 +67,7 @@ mainfont: Helvetica
 ---
 
 ```{r setup, warning=FALSE, include=FALSE}
+#This chunck folds the code for overall environment control
 knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, dpi=600)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 set.seed(123)
@@ -87,6 +75,8 @@ par(family = "Helvetica")
 ```
 
 ```{r library, include = FALSE}
+renv::restore()
+#load all the packages
 library(papaja)
 library(tidyverse)
 library(likert)
@@ -105,9 +95,6 @@ library(seminr)
 r_refs("references.bib")
 ```
 
-```{r renv, eval=FALSE, include=FALSE}
-renv::snapshot()
-```
 
 ```{r ggplot2, include=F}
 #This chunk holds code for creating ggplot2 based apatheme for plots.
@@ -131,21 +118,9 @@ apatheme=theme_bw()+
 
 ```
 
+We posed the following questions: What are the influences of LEBA categories on (a) chronotype, (b) mood, (c) sleep quality, and (d) memory and concentration? To answer these questions, we proposed a theoretical framework (Figure 1) based on the literature reviewed. We used the partial least squares structural equation modeling (PLS-SEM), which is best suited to formulate such a predictive model [54, 55]. Predicting relationships using PLS-SEM is a two-step process where first, a measurement model is used to assess the reliability and validity of the latent variables used in the model. Second, a structural model is used to investigate the precited relationships of the latent structures. In the structural model, (i) the direct effects (DE): influences unmediated by any other constructs in the model, (ii) indirect effects (IE): influences mediated by at least one intervening construct in the model and (iii) total effects (TE): sums of direct and indirect effects of a given construct can be estimated [56].
+We predicted that five types of LEBA behavior categories would directly influence chronotype (H1), mood (H2), and sleep quality (H3). We also predicted that sleep quality would be influenced by mood (H4) and chronotype (H5). Memory and concentration would be influenced by sleep quality (H6), mood (H7), and chronotype (H8). LEBA categories would directly influence memory and concentration (H9). Lastly, we predicted that LEBA categories would exhibit a significant total effect on sleep quality (H10), memory and concentration (H11).
 
-##Objectives: 
-We pose the following questions:
-1. What are the influences of light exposure related behaviour on our chronotype?
-2. What are the influences of light exposure related behaviour on sleep quality?
-3. What are the influences of light exposure related behaviour on trouble in memory and concentration?
-4. What are the influences of light exposure related behaviour on mood?
-
-
-
-
-## Hypothesis
-
-Light exposure related behaviour will successfully predict: Trouble in
-Concentration and memory Chronotype and Sleep quality Mood
 
 # Methods
 
@@ -161,7 +136,7 @@ data <- all.data %>%
 
 completion_rate <- nrow(data)/nrow(all.data)*100
 
-
+#Exclusion and inclusion crietaia
 LB <- data %>% 
   filter(Exclusion_Medication == "No" & Exclusion_Physical == "No"&Exclusion_Vision == "No" )
 
@@ -270,66 +245,11 @@ demography <- Descriptives %>%
 We conducted a large-scale online survey to gather data for this study. The inclusion criteria for respondents to be included in this study were as follows: (1) Malaysian resident >18 years of age and able to read and write English (2)  no physiological and psychological disorder (self reported) . `r nrow(all.data) ` adults completed the survey. However, we excluded `r nrow(incomplete)` participants, due to incomplete data (`r MOTE::apa(completion_rate,1,T)`$\%$ completion rate). We further excluded `r MOTE::apa(exclusion,1,T)` participants based on our inclusion criteria. Thus, we used we data form `r nrow(LB)` participants for further processing. A priori power analysis was done to determine adequate sample sizes with G$*$Power 3.0 [@faul2007g]. To achieve a effect size of .15 [@cohen1988statistical] and 80% statistical power and $alpha$=0.05, for a multiple liner multiple regression with 13 predictors will need a total sample of 131 individuals. Also, the maximum number of items per factor in our model was six.To detect minimum $R^2$ vale of 0.10 for a factor with six items with 80% statistical power and $alpha$=0.05 at least 130 participants are required [@hair2021primer]. Our sample size exceeded these recommendations. Out of `r nrow(LB)` participants `r printnum((Gender.count[1,2]/nrow(LB))*100)`% (`r Gender.count[1,2]`) were female ranging in age from `r demography$Female$min[1]` to
 `r demography$Female$max[1]` (`r demography$Female$mean[1]`±`r demography$Female$sd[1]`) and `r printnum((Gender.count[2,2]/nrow(LB))*100)`% (`r Gender.count[2,2]`) were male with an age range between `r demography$Male$min[1]` to `r demography$Male$max[1]` years (`r demography$Male$mean[1]`±`r demography$Male$sd[1]`). 78.66% of the participants were unmarried. Majority of the participants were students (71.42%). 56.29% participants had at least a Bachelor Degree.
 
-```{r LongDesc}
-
-library(kableExtra)
-Descriptives %>% 
-  tbl_summary(type = list(Subjective_Alertness ="continuous", 
-                            Age ="continuous", 
-                           Community_Stance ="continuous", 
-                           `Cups_of_Coffee(Weekday)` ="continuous",
-                           `Cups_of Coffee(Weekend)` = "continuous"),
-               missing = "no",
-  statistic = list(all_continuous()~ "{mean} ({sd})")
-) %>% modify_caption("Dempgraphics")  %>% 
-  as_kable(format = 'pipe')  %>% 
-  kable_styling(latex_options = c("scale_down","repeat_header")) %>% 
-  column_spec(1, width = "2cm")
- 
-```
-
-```{r shortDes,include=F}
-tab.res <- LB %>% 
-  dplyr::select(PSQI_Factor, PANAS_PositiveAffect, PANAS_NegativeAffect,
-                HLEA_lx, LEBA_F1:LEBA_F5,  KSS_Alertness, OLS_Concentration, OLS_Memory)
-
-
-colnames(tab.res) <- c( "PSQI_Factor", "Positive_Affect", "Negative_Affect", "Avg_Corneal_Illuminance",  "LEBA1", "LEBA2", "LEBA3", "LEBA4", "LEBA5",
-                             "Subjective_Alertness", "Trouble_Concentration", "Trouble_in_Memory" )
-
-
-## Recoding tab.res$Trouble_Concentration into tab.res$Trouble_Concentration_rec
-tab.res$Trouble_Concentration <- fct_recode(tab.res$Trouble_Concentration,
-  "0" = "Absent",
-  "2" = "Moderate",
-  "3" = "Severe",
-  "1" = "Slight"
-)
-tab.res$Trouble_Concentration <- as.numeric(as.character(tab.res$Trouble_Concentration))
-
-## Recoding tab.res$Trouble_in_Memory
-tab.res$Trouble_in_Memory <- fct_recode(tab.res$Trouble_in_Memory,
-  "0" = "Absent",
-  "2" = "Moderate",
-  "3" = "Severe",
-  "1" = "Slight"
-)
-tab.res$Trouble_in_Memory <- as.numeric(as.character(tab.res$Trouble_in_Memory))
-
-
-gt_sum <- tab.res %>% 
-  tbl_summary(by = PSQI_Factor, type = list(Subjective_Alertness ="continuous",Trouble_Concentration = "continuous", Trouble_in_Memory = "continuous"), missing = "no",
-  statistic = list(all_continuous()~ "{mean} ({sd})")  
-  ) %>% 
-  add_p() %>% 
-    add_q()
-```
-
 ## Material
 
 ### Light exposure behaviour assessment.
 
-```{r LEBA-validation, eval=FALSE, include=FALSE}
+```{r LEBA-response, include=FALSE}
 
 #LEBA_stem is created to get the item-stem
 LEBA_stem <- LB %>% 
@@ -526,31 +446,30 @@ LEBATable2%>%
   # add coloured dots and lines on the first column
   
   gt::tab_row_group(
-    label = "F1: Wearing blue light filters",
+    label = "B1: Wearing blue light filters",
     rows = 01:03) %>%
  gt::tab_row_group(
-   label = "F2: Spending time outdoors",
+   label = "B2: Spending time outdoors",
    rows = 04:09) %>% 
   gt::tab_row_group(
-    label = "F3: Using phone and smartwatch in bed",
+    label = "B3: Using phone and smartwatch in bed",
     rows = 10:12) %>% 
   gt::tab_row_group(
-    label = "F4: Using light before bedtime",
+    label = "B4: Controlling environmental light before bedtime",
     rows = 13:15) %>% 
   gt::tab_row_group(
-    label = "F5: Using light in the morning and during daytime",
+    label = "B5: Using light in the morning and during daytime",
     rows = 16:18)%>%
   gt::row_group_order(
-    groups = c("F1: Wearing blue light filters", "F2: Spending time outdoors",
-               "F3: Using phone and smartwatch in bed", "F4: Using light before bedtime",
-               "F5: Using light in the morning and during daytime" ))%>%
+    groups = c("B1: Wearing blue light filters", "B2: Spending time outdoors",
+               "B3: Using phone and smartwatch in bed", "B4: Controlling environmental light before bedtime",
+               "B5: Using light in the morning and during daytime" ))%>%
   tab_options(
     table.font.size = px(14L)) %>% 
   cols_width(
     Stem ~ px(200)) %>% 
-  gt::gtsave("Figures/LEBA.png",vwidth = 6000)
+  gt::gtsave("Figures/LEBA.png",vwidth = 1000)
 ```
-
 
 Light exposure related behaviours was measured using the short form of Light Exposure Behaviour Assessment (LEBA)[@LEBA2022]. The short form contains five factors with 19 items. LEBA measures the propensity of different light exposure related behaviours in the last one month retrospectively using a five-point Likert type response scale (1 = never; 2 = rarely; 3 = sometimes; 4 = often; 5 = always). The first factor of LEBA (F1)
 investigate the propensity of wearing blue light filter glasses indoors and outdoors. The second factor (F2) measures how much time spend under sunlight. The third factor measures (F3) our habit of using smart devices in bed. The fourth factor(F4) looks into our habit of controlling light exposure before bedtime. The last factor (F5) captures our habit of using different electric light sources throughout the day. All 19 items of LEBA and and the participants' responses to them are shown in \@ref(fig:fig1).
@@ -576,29 +495,6 @@ To assess trouble in memory and concentration we used two items with four-point 
 We used the Pittsburgh Sleep Quality Index (PSQI) [@RN1183] to measure the sleep quality of the participants. PSQI measures seven domains of sleep to differentiate "poor" from "good" sleep. Participants responded to the PSQI using a Likert type responses option ranging from zero the three, whereby 3 reflects the negative extreme
 on the Likert Scale. A sum of scores equal to or greater than five
 indicates poor sleep quality. Though @RN1183 reported an one factor structure of the scale, there are evidence that the factor structure of PSQI varies from one factor to three factors [@manzar2018dimensionality]. @dunleavy2019examining in their study recommended to use a two-factor model: perceived sleep quality (PSQ) and sleep efficiency (SE) while measuring the sleep quality among Singapore citizen. In this study we followed their recommended structure.
-
-```{r PSQ-cfa, eval=FALSE, include=FALSE}
-library(lavaan)
-psqi_model1 <- "PSQ =~ PSQI_C1+PSQI_C2
-                  DD=~PSQI_C5+PSQI_C6+PSQI_C7
-                 SE =~ PSQI_C3 + PSQI_C4" 
-
-
-fit.Cor.1 <- lavaan::cfa(psqi_model1, data = LB,estimator = "ML") 
-
-## Summary of Model 
-cfa.sum.1 <- summary(fit.Cor.1, fit.measures =TRUE,standardized = TRUE,rsq =TRUE)
-
-
-## Selected Fit measures 
-fit.1 <- fitmeasures (fit.Cor.1,c("gfi", "agfi", "nfi","rfi", 
-                       "cfi.scaled","tli.scaled",
-                       "rmsea.scaled", "rmsea.ci.lower.scaled", "rmsea.ci.upper.scaled","srmr"))
-
-
-reliability1 <- semTools::reliability(fit.Cor.1)
-
-```
 
 
 ### Morningness-Eveningness Questionnaire
@@ -688,7 +584,7 @@ First, we assessed collinearity of the constructs in our structural model by cal
 
 ```{r fig2, fig.align= 'center', fig.cap="Analyses Steps",  warning=FALSE,  out.height='100%', out.width='100%'}
 
-knitr::include_graphics('Figures/PLsSeM.png', dpi =300)
+knitr::include_graphics('Figures/Figure 4.png', dpi =300)
 
 ```
 
@@ -703,13 +599,8 @@ esem_data_leba<- LB %>%
   dplyr::select(rec_LEBA1:rec_LEBA12,rec_LEBA15,rec_LEBA16,rec_LEBA18, rec_LEBA19,rec_LEBA20, rec_LEBA22 )
 
 
-
-
-
 #Rename variables
 # names(esem_data_LEBA) <- paste0("x", c(1:18))
-
-
 
 
 target_rot_leba <- esemComp::make_target(18,#Item number
@@ -751,7 +642,6 @@ fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "c
 # esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
 
 ```
-
 
 ```{r esem_PSQI, include=F}
 
@@ -804,7 +694,6 @@ fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "c
 # esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
 
 ```
-
 
 ```{r esem_MEQ, include=F}
 
@@ -860,7 +749,6 @@ fit_indices_leba <- fitmeasures (esem_fit_leba ,c("gfi", "agfi", "nfi","rfi", "c
 # esem_output <- tabledown::cfa.tab(esem_fit, robust=F)
 
 ```
-
 
 ```{r esem_PANAS, include=F}
 
@@ -1026,7 +914,6 @@ names(LB_1)[names(LB_1) == "PSQI_C7"] <- "PSQ5"
 
 
 ```
-
 
 ```{r pls-sem1, include =F}
 #PLS-sem Model-1
@@ -1341,9 +1228,6 @@ excluded_items <- measurment_table1[which(measurment_table1$`Factor Loading`< .4
 #MEQ_F3_item7: Original item12
 ```
 
-
-
-
 ```{r renaming2, include =F}
 #This code holds the renaming code for PLS-SEM 2. Items in MEQ( item6, 10,16,12) and LEBA (item4)  are excluded due to loading bellow .40
 
@@ -1524,7 +1408,6 @@ htmtdis_val[2:16] <- lapply(htmtdis_val[2:16], FUN = function(y){as.numeric(y)})
 
 ```
 
-
 ```{r explanatory, include=F}
 
 r_square <- as.data.frame(r2_value[r2_value$rowname== "AdjR^2",])
@@ -1533,7 +1416,6 @@ weak <- r_square %>% select_if(~any(.>=0.02 & .<0.13))
 moderate <- r_square %>% select_if(~any(.>=0.13 & .<0.26))
 substantial <- r_square %>% select_if(~any(.>=0.26))
 ```
-
 
 ```{r bootstrapping, include=F}
 #Bootstrapping
@@ -1811,11 +1693,9 @@ measurment_table2[52,5] <- mm2_ave_Neg
 measurment_table2[2:5] <- lapply(measurment_table2[2:5], FUN = function(y){as.numeric(y)})
 ```
 
-
 ```{r mmtab2-apa}
 apa_table(measurment_table2, caption =  "Results of Measurement assessment", note = "All factors loadings are significant(p<0.05)",font_size= 'scriptsize', longtable=T)
 ```
-
 
 ```{r desval-fl}
 apa_table(fl_dis_val, caption =  "Discriminant validity assessment using the Fornell-Larker Criterion", font_size= 'scriptsize', landscape = T)
@@ -1970,7 +1850,7 @@ Our model indicated a significant negative total effect of positive affect on tr
 
 ```{r fig3, fig.align= 'center', fig.cap="Analyses Steps",  warning=FALSE,  out.height='100%', out.width='100%'}
 
-knitr::include_graphics('Figures/PLS_structural_final.png', dpi =300)
+knitr::include_graphics('Figures/Figure 2.png', dpi =300)
 
 ```
 
